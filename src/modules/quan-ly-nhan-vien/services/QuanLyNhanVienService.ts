@@ -9,7 +9,7 @@ export class QuanLyNhanVienService implements QuanLyNhanVienServiceInterface {
   GetNhanVien(maNv: number): Promise<NhanVien> {
     throw new Error('Method not implemented.');
   }
-  GetNhanViens(): Promise<NhanVien[]> {
+  GetNhanViens(filter?: any): Promise<NhanVien[]> {
     throw new Error('Method not implemented.');
   }
   PostNhanVien(nhanVien: NhanVien): Promise<NhanVien> {
@@ -23,4 +23,4 @@ export class QuanLyNhanVienService implements QuanLyNhanVienServiceInterface {
   }
 
 
- }
+}

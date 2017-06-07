@@ -19,7 +19,7 @@ export class QuanLyNhanVienServicePrototype implements QuanLyNhanVienServiceInte
     }
     )
   }
-  GetNhanViens(): Promise<NhanVien[]> {
+  GetNhanViens(filter?: any): Promise<NhanVien[]> {
     return new Promise((resolve, reject) => {
       let nhanViens: NhanVien[] = [];
       this.db.ref('/users').once('value').then(function (snapshot) {
