@@ -53,7 +53,7 @@ module.exports = ({
   },
   entry: {
     app: ['aurelia-bootstrapper'],
-    vendor: ['bluebird', 'jquery', 'bootstrap'],
+    vendor: ['bluebird'],
   },
   output: {
     path: outDir,
@@ -111,10 +111,10 @@ module.exports = ({
         loader: 'expose-loader?Promise'
       },
       // exposes jQuery globally as $ and as jQuery:
-      {
-        test: require.resolve('jquery'),
-        loader: 'expose-loader?$!expose-loader?jQuery'
-      },
+      // {
+      //   test: require.resolve('jquery'),
+      //   loader: 'expose-loader?$!expose-loader?jQuery'
+      // },
       // embed small images and fonts as Data Urls and larger ones as files:
       {
         test: /\.(png|gif|jpg|cur)$/i,
@@ -159,10 +159,10 @@ module.exports = ({
   plugins: [
     new AureliaPlugin(),
     new ProvidePlugin({
-      'Promise': 'bluebird',
-      '$': 'jquery',
-      'jQuery': 'jquery',
-      'window.jQuery': 'jquery',
+      'Promise': 'bluebird'
+      // '$': 'jquery',
+      // 'jQuery': 'jquery',
+      // 'window.jQuery': 'jquery',
     }),
     new TsConfigPathsPlugin(),
     new CheckerPlugin(),
