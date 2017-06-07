@@ -5,19 +5,16 @@ import { inject } from "aurelia-dependency-injection";
 import { QuanLyNhanVienServicePrototype } from "./services/QuanLyNhanVienService.prototype";
 import { NhanVien } from "./models/nhan-vien";
 import { DialogService } from 'aurelia-dialog';
-import { GridOptions, GridApi } from "ag-grid";
+import { GridOptions } from "ag-grid";
 import swal from 'sweetalert';
 
 @inject(QuanLyNhanVienServicePrototype, DialogService)
 export class DanhSachNhanVien {
   private gridOptions: GridOptions;
-  private api: GridApi;
-  private columnDefs: any[];
 
   private listNhanVien: any = [];
   private selectedListNhanVien: NhanVien[] = [];
-  private selectedNhanVien: NhanVien;
-
+  private selectedNhanVien: NhanVien = new NhanVien();
   private filterModel: any;
 
 
@@ -67,7 +64,7 @@ export class DanhSachNhanVien {
 
       switch (actionType) {
         case "edit":
-          return this.onActionEditClick();
+          return this.saveNhanVien();
       }
     }
   }
@@ -75,8 +72,18 @@ export class DanhSachNhanVien {
     logger.info("View action clicked", data);
   }
 
+  themMoiNhanVien() {
+    this.selectedNhanVien = new NhanVien();
+    this.saveNhanVien();
+  }
 
-  public onActionEditClick() {
+
+  //ag-grid events
+  onRowDoubleClicked(e) {
+    this.selectedNhanVien = new NhanVien(e.data);
+    this.saveNhanVien();
+  }
+  saveNhanVien() {
     this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedNhanVien }).whenClosed((result) => {
       if (!result.wasCancelled) {
         logger.info('Save', result);
@@ -92,31 +99,6 @@ export class DanhSachNhanVien {
         logger.info("Cancel");
       }
     });
-  }
-
-  themMoiNhanVien() {
-    this.dialogService.open({ viewModel: SaveNhanVien, model: new NhanVien() }).whenClosed((result) => {
-      if (!result.wasCancelled) {
-        logger.info('Save', result.output);
-        let themMoiNhanVien: NhanVien = result.output;
-        this.quanLyNhanVienService.PostNhanVien(themMoiNhanVien)
-          .then((res) => {
-            swal("Thành công", "Lưu thành công", "success");
-            this.createNewDatasource();
-          }).catch((err) => {
-
-            swal("Không thành công", `${err}`, "error")
-          });
-      } else {
-        logger.info('Cancel');
-      }
-    });
-  }
-
-  //ag-grid events
-  onRowDoubleClicked(e) {
-    let nhanVien = new NhanVien(e.data);
-    this.onActionEditClick();
   }
   onRowSelected(e) {
     this.selectedListNhanVien = this.gridOptions.api.getSelectedRows().map(x => new NhanVien(x));

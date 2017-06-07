@@ -3,7 +3,5 @@ import { FrameworkConfiguration } from 'aurelia-framework';
 
 export function configure(config: FrameworkConfiguration) {
     config.globalResources([
-        PLATFORM.moduleName("./select2/index"),
-         PLATFORM.moduleName("./datetime-picker/datatime-picker")
-    ]);
+        PLATFORM.moduleName("./select2/index")]);
 }
