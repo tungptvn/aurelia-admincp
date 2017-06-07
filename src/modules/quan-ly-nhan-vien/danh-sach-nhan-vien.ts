@@ -13,51 +13,14 @@ export class DanhSachNhanVien {
   private gridOptions: GridOptions;
   private api: GridApi;
   private columnDefs: any[];
-  
+
   private listItem: any = [];
   private selectedList: NhanVien[] = [];
   private selectedItem: NhanVien;
 
 
   constructor(private quanLyNhanVienService: QuanLyNhanVienServiceInterface, private dialogService) {
-    this.columnDefs = [
-      {
-        headerName: "Chọn",
-        width: 30,
-        headerCheckboxSelection: true,
-        headerCheckboxSelectionFilteredOnly: true,
-        checkboxSelection: true
-      },
-      {
-        headerName: "Mã", field: "MaNv", filter: 'number'
-      },
-      { headerName: "Chức vụ", field: "ChucVu", suppressMenu: false, suppressSorting: true },
-      { headerName: "Họ tên", field: "HoTen", filter: 'text', filterParams: { apply: true, newRowsAction: 'keep' }, suppressMenu: false, suppressSorting: true },
-      { headerName: "Email", field: "Email", filter: 'text', filterParams: { newRowsAction: 'keep' }, suppressMenu: false, suppressSorting: true },
-      {
-        headerName: "Hành động",
-        suppressMenu: true,
-        suppressSorting: true,
-        template:
-        `<button type="button" class="btn btn-default btn-xs" data-action-type="edit">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chi tiết
-        </button>
-        `
-      }
-    ];
-    this.gridOptions = {
-      enableSorting: true,
-      enableFilter: true,
-      enableColResize: true,
-      paginationPageSize: 20,
-      columnDefs: this.columnDefs,
-      rowModelType: 'pagination',
-      rowSelection: 'multiple',
-      animateRows: true,
-      getRowNodeId: function (item) {
-        return item.MaNv;
-      }
-    };
+    this.gridOptions = NhanVien.gridOptions;
   }
 
   activate() {
@@ -111,9 +74,9 @@ export class DanhSachNhanVien {
 
 
   public onActionEditClick() {
-    this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedItem }).then((result) => {
+    this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedItem }).whenClosed((result) => {
       if (!result.wasCancelled) {
-        logger.info('Save', result.output);
+        logger.info('Save', result);
         let editedNhanVien = result.output;
         this.quanLyNhanVienService.PutNhanVien(editedNhanVien).then((res) => {
           swal("Thành công", "Lưu thành công", "success");
@@ -129,7 +92,7 @@ export class DanhSachNhanVien {
   }
 
   themMoiNhanVien() {
-    this.dialogService.open({ viewModel: SaveNhanVien, model: new NhanVien() }).then((result) => {
+    this.dialogService.open({ viewModel: SaveNhanVien, model: new NhanVien() }).whenClosed((result) => {
       if (!result.wasCancelled) {
         logger.info('Save', result.output);
         let themMoiNhanVien: NhanVien = result.output;

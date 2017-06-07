@@ -10,6 +10,44 @@ export class NhanVien {
         this.HoTen = nhanVien.HoTen;
 
     }
+    static columnDefs = [
+        {
+            headerName: "Chọn",
+            width: 30,
+            headerCheckboxSelection: true,
+            headerCheckboxSelectionFilteredOnly: true,
+            checkboxSelection: true
+        },
+        {
+            headerName: "Mã", field: "MaNv", filter: 'number'
+        },
+        { headerName: "Chức vụ", field: "ChucVu", suppressMenu: false, suppressSorting: true },
+        { headerName: "Họ tên", field: "HoTen", filter: 'text', filterParams: { apply: true, newRowsAction: 'keep' }, suppressMenu: false, suppressSorting: true },
+        { headerName: "Email", field: "Email", filter: 'text', filterParams: { newRowsAction: 'keep' }, suppressMenu: false, suppressSorting: true },
+        {
+            headerName: "Hành động",
+            suppressMenu: true,
+            suppressSorting: true,
+            template:
+            `<button type="button" class="btn btn-default btn-xs" data-action-type="edit">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Chi tiết
+        </button>
+        `
+        }
+    ];
+    static gridOptions = {
+        enableSorting: true,
+        enableFilter: true,
+        enableColResize: true,
+        paginationPageSize: 20,
+        columnDefs: NhanVien.columnDefs,
+        rowModelType: 'pagination',
+        rowSelection: 'multiple',
+        animateRows: true,
+        getRowNodeId: function (item) {
+            return item.MaNv;
+        }
+    };
 }
 
 // define validation model
