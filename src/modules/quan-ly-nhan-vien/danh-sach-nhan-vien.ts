@@ -17,7 +17,6 @@ export class DanhSachNhanVien {
   private selectedNhanVien: NhanVien = new NhanVien();
   private filterModel: any;
 
-
   constructor(private quanLyNhanVienService: QuanLyNhanVienServiceInterface, private dialogService) {
     this.gridOptions = NhanVien.gridOptions;
   }
