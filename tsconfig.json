@@ -7,8 +7,8 @@
     "moduleResolution": "node",
     "allowJs": true,
     "sourceRoot": "src",
-    "baseUrl": "src",
     "compileOnSave": false,
+    "skipLibCheck": true,
     "lib": [
       "es2017", "dom"
     ]
@@ -17,6 +17,7 @@
     "node_modules",
     "dist",
     "static",
-    "assets"
+    "assets",
+    "test"
   ]
 }
