@@ -18,6 +18,8 @@ export class DanhSachNhanVien {
   private selectedListNhanVien: NhanVien[] = [];
   private selectedNhanVien: NhanVien;
 
+  private filterModel: any;
+
 
   constructor(private quanLyNhanVienService: QuanLyNhanVienServiceInterface, private dialogService) {
     this.gridOptions = NhanVien.gridOptions;
@@ -41,7 +43,7 @@ export class DanhSachNhanVien {
       getRows: async (params) => {
 
         logger.info('params', params)
-        this.listNhanVien = await this.quanLyNhanVienService.GetNhanViens();
+        this.listNhanVien = await this.quanLyNhanVienService.GetNhanViens(this.filterModel);
         var rowsThisPage = this.listNhanVien.slice(params.startRow, params.endRow);
         var lastRow = -1;
         if (this.listNhanVien.length <= params.endRow) {
