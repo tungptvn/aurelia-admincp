@@ -14,9 +14,9 @@ export class DanhSachNhanVien {
   private api: GridApi;
   private columnDefs: any[];
 
-  private listItem: any = [];
-  private selectedList: NhanVien[] = [];
-  private selectedItem: NhanVien;
+  private listNhanVien: any = [];
+  private selectedListNhanVien: NhanVien[] = [];
+  private selectedNhanVien: NhanVien;
 
 
   constructor(private quanLyNhanVienService: QuanLyNhanVienServiceInterface, private dialogService) {
@@ -25,7 +25,7 @@ export class DanhSachNhanVien {
 
   activate() {
     return this.quanLyNhanVienService.GetNhanViens().then((res) => {
-      this.listItem = res;
+      this.listNhanVien = res;
     })
 
   }
@@ -33,31 +33,32 @@ export class DanhSachNhanVien {
     this.createNewDatasource();
   }
   createNewDatasource() {
-    this.selectedList = [];
-    if (!this.listItem) {
+    this.selectedListNhanVien = [];
+    if (!this.listNhanVien) {
       return;
     }
     var dataSource = {
-      getRows: (params) => {
+      getRows: async (params) => {
 
-        this.quanLyNhanVienService.GetNhanViens().then(res => {
-          this.listItem = res;
-          var rowsThisPage = this.listItem.slice(params.startRow, params.endRow);
-          var lastRow = -1;
-          if (this.listItem.length <= params.endRow) {
-            lastRow = this.listItem.length;
-          }
-          params.successCallback(rowsThisPage, lastRow);
-        })
+        logger.info('params', params)
+        this.listNhanVien = await this.quanLyNhanVienService.GetNhanViens();
+        var rowsThisPage = this.listNhanVien.slice(params.startRow, params.endRow);
+        var lastRow = -1;
+        if (this.listNhanVien.length <= params.endRow) {
+          lastRow = this.listNhanVien.length;
+        }
+        params.successCallback(rowsThisPage, lastRow);
+
+
       },
-      rowCount: this.listItem.length
+      rowCount: this.listNhanVien.length
     };
 
     this.gridOptions.api.setDatasource(dataSource);
 
   }
   public onRowClicked(e) {
-    this.selectedItem = new NhanVien(e.data);
+    this.selectedNhanVien = new NhanVien(e.data);
     if (e.event.target !== undefined) {
       let data = e.data;
       let actionType = e.event.target.getAttribute("data-action-type");
@@ -74,7 +75,7 @@ export class DanhSachNhanVien {
 
 
   public onActionEditClick() {
-    this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedItem }).whenClosed((result) => {
+    this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedNhanVien }).whenClosed((result) => {
       if (!result.wasCancelled) {
         logger.info('Save', result);
         let editedNhanVien = result.output;
@@ -116,7 +117,7 @@ export class DanhSachNhanVien {
     this.onActionEditClick();
   }
   onRowSelected(e) {
-    this.selectedList = this.gridOptions.api.getSelectedRows().map(x => new NhanVien(x));
+    this.selectedListNhanVien = this.gridOptions.api.getSelectedRows().map(x => new NhanVien(x));
   }
   deselectAll() {
     this.gridOptions.api.deselectAll();
@@ -124,7 +125,7 @@ export class DanhSachNhanVien {
 
   // view events
   deleteSelected() {
-    let maNvs = this.selectedList.map(x => x.MaNv);
+    let maNvs = this.selectedListNhanVien.map(x => x.MaNv);
     swal({
       title: "Bạn có chắc xóa không",
       text: "Bạn sẽ không khôi phục lại được nhân viên nếu đã bị xóa",
@@ -141,7 +142,7 @@ export class DanhSachNhanVien {
           this.quanLyNhanVienService.DeleteNhanViens(maNvs)
             .then(res => {
               swal("Thành công", "Lưu thành công", "success");
-              this.selectedList = [];
+              this.selectedListNhanVien = [];
               this.createNewDatasource();
             }).catch((err) => {
 

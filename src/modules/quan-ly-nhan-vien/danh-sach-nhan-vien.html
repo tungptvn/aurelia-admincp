@@ -7,7 +7,7 @@
       <div class="btn-group">
         <button disabled.bind="selectedList.length===0" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-    Đã chọn (${selectedList.length}) <span class="caret"></span>
+    Đã chọn (${selectedListNhanVien.length}) <span class="caret"></span>
   </button>
         <ul class="dropdown-menu">
           <li click.delegate="deleteSelected()"><a href="javascript:void(0)">Xóa</a></li>
@@ -17,8 +17,8 @@
     </div>
   </div>
   <hr>
-  <div style="width: 100%; height: 350px;">
-    <ag-grid-aurelia #agGrid grid-options.bind="gridOptions" column-defs.bind="columnDefs" grid-ready.call="onReady()"
+  <div style="width: 100%; height: 450px;">
+    <ag-grid-aurelia  #agGrid grid-options.bind="gridOptions" column-defs.bind="columnDefs" grid-ready.call="onReady()"
       row-clicked.call="onRowClicked($event)" row-double-clicked.call="onRowDoubleClicked($event)" row-selected.call="onRowSelected($event)">
 
     </ag-grid-aurelia>

@@ -1,4 +1,4 @@
 import { LogManager } from 'aurelia-framework';
 
-
-LogManager.setLevel(4);
+var loglevel = sessionStorage.getItem('loglevel') || 4;
+LogManager.setLevel(loglevel);

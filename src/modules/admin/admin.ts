@@ -4,15 +4,15 @@ import { PLATFORM } from 'aurelia-pal';
 import { inject } from 'aurelia-dependency-injection';
 import { Aurelia } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
-// import "../../helpers/loggingSetting";
+import "../../helpers/loggingSetting";
 // import "../../helpers/axiosInterceptor";
 @inject(AuthenService, Router)
 export class App {
     router: Router;
     userInfo: any;
-    constructor(private authenSrv: AuthenService, router) {
+    constructor(private authenSrv: AuthenService) {
         this.userInfo = this.authenSrv.userInfo;
-        this.router = router;
+        
     }
     configureRouter(config: RouterConfiguration, router: Router) {
         config.title = 'Aurelia';

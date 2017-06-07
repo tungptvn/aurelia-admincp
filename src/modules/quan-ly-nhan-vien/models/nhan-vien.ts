@@ -36,8 +36,8 @@ export class NhanVien {
         }
     ];
     static gridOptions = {
-        enableSorting: true,
-        enableFilter: true,
+        enableSorting: false,
+        enableFilter: false,
         enableColResize: true,
         paginationPageSize: 20,
         columnDefs: NhanVien.columnDefs,
