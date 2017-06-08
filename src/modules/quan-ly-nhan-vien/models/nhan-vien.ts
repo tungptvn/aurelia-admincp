@@ -48,6 +48,9 @@ export class NhanVien {
             return item.MaNv;
         }
     };
+    get IsExit() {
+        return !!this.MaNv;
+    }
 }
 
 // define validation model

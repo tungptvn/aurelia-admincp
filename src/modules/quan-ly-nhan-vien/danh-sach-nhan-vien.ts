@@ -1,3 +1,4 @@
+import { PLATFORM } from 'aurelia-pal';
 import { logger } from './logger';
 import { QuanLyNhanVienServiceInterface } from './services/QuanLyNhanVienServiceInterface';
 import { SaveNhanVien } from './dialogs/luu-nhan-vien';
@@ -6,7 +7,7 @@ import { QuanLyNhanVienServicePrototype } from "./services/QuanLyNhanVienService
 import { NhanVien } from "./models/nhan-vien";
 import { DialogService } from 'aurelia-dialog';
 import { GridOptions } from "ag-grid";
-import swal from 'sweetalert';
+// import PLATFORM.global.swal from 'sweetalert';
 
 @inject(QuanLyNhanVienServicePrototype, DialogService)
 export class DanhSachNhanVien {
@@ -16,7 +17,6 @@ export class DanhSachNhanVien {
   private selectedListNhanVien: NhanVien[] = [];
   private selectedNhanVien: NhanVien = new NhanVien();
   private filterModel: any;
-
   constructor(private quanLyNhanVienService: QuanLyNhanVienServiceInterface, private dialogService) {
     this.gridOptions = NhanVien.gridOptions;
   }
@@ -86,14 +86,26 @@ export class DanhSachNhanVien {
     this.dialogService.open({ viewModel: SaveNhanVien, model: this.selectedNhanVien }).whenClosed((result) => {
       if (!result.wasCancelled) {
         logger.info('Save', result);
-        let editedNhanVien = result.output;
-        this.quanLyNhanVienService.PutNhanVien(editedNhanVien).then((res) => {
-          swal("Thành công", "Lưu thành công", "success");
-          this.createNewDatasource();
-        }).catch((err) => {
+        this.selectedNhanVien = result.output;
+        let res;
+        if (this.selectedNhanVien.IsExit) {
+          this.quanLyNhanVienService.PutNhanVien(this.selectedNhanVien).then((res) => {
+            PLATFORM.global.swal("Thành công", "Lưu thành công", "success");
+            this.createNewDatasource();
+          }).catch((err) => {
 
-          swal("Không thành công", `${err}`, "error")
-        });
+            PLATFORM.global.swal("Không thành công", `${err}`, "error")
+          });
+        }
+        else {
+          this.quanLyNhanVienService.PutNhanVien(this.selectedNhanVien).then((res) => {
+            PLATFORM.global.swal("Thành công", "Lưu thành công", "success");
+            this.createNewDatasource();
+          }).catch((err) => {
+
+            PLATFORM.global.swal("Không thành công", `${err}`, "error")
+          });
+        }
       } else {
         logger.info("Cancel");
       }
@@ -109,7 +121,7 @@ export class DanhSachNhanVien {
   // view events
   deleteSelected() {
     let maNvs = this.selectedListNhanVien.map(x => x.MaNv);
-    swal({
+    PLATFORM.global.swal({
       title: "Bạn có chắc xóa không",
       text: "Bạn sẽ không khôi phục lại được nhân viên nếu đã bị xóa",
       type: "warning",
@@ -124,15 +136,15 @@ export class DanhSachNhanVien {
         if (isConfirm) {
           this.quanLyNhanVienService.DeleteNhanViens(maNvs)
             .then(res => {
-              swal("Thành công", "Lưu thành công", "success");
+              PLATFORM.global.swal("Thành công", "Lưu thành công", "success");
               this.selectedListNhanVien = [];
               this.createNewDatasource();
             }).catch((err) => {
 
-              swal("Không thành công", `${err}`, "error")
+              PLATFORM.global.swal("Không thành công", `${err}`, "error")
             });
         } else {
-          swal("Đã hủy", "đã hủy thao tác", "error");
+          PLATFORM.global.swal("Đã hủy", "đã hủy thao tác", "error");
         }
       })
 

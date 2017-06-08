@@ -4,7 +4,6 @@ import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 
 import "sweetalert";
-import "sweetalert/dist/sweetalert.css";
 // import '../styles/loading.css';
 // comment out if you don't want a Promise polyfill (remove also from webpack.config.js)
 import * as Bluebird from 'bluebird';
