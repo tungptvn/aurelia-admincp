@@ -1,0 +1,43 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+  </style>
+  <ux-dialog>
+
+    <ux-dialog-body>
+      <h2>${getTieuDe}</h2>
+      <form submit.delegate="save()">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Tài khoản</label>
+
+          <input type="text" class="form-control" placeholder="Tài khoản" value.bind="selectedItem.User & validateOnChange">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Tên</label>
+          <input type="text" class="form-control" placeholder="Tên" value.bind="selectedItem.Name">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Mô tả</label>
+          <input type="text" class="form-control" placeholder="Mô tả" value.bind="selectedItem.Descriptions">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputFile">Mật khẩu</label>
+          <input type="password" class="form-control" placeholder="Mật khẩu" value.bind="selectedItem.Pass">
+
+        </div>
+        <div class="form-group">
+          <label for=""></label>
+         <button class="btn btn-primary" type="submit">Lưu</button>
+         <button class="btn btn-warning" click.trigger="dialogcontroller.cancel()">Hủy</button>
+        </div>
+
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>
+
