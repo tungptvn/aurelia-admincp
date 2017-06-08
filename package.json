@@ -13,6 +13,7 @@
     "node": ">= 6.0.0"
   },
   "scripts": {
+    "dev": "npm start -- webpack.server.hmr",
     "start": "nps",
     "test": "nps test"
   },

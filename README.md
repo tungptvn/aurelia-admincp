@@ -15,7 +15,7 @@ build and bundle the app. There is no need to install Webpack globally.
 To run the app execute the following command:
 
 ```shell
-npm start # or: yarn start
+npm dev # or: yarn dev
 ```
 
 This command starts the webpack development server that serves the build bundles.
