@@ -13,8 +13,7 @@
     "node": ">= 6.0.0"
   },
   "scripts": {
-    "dev": "npm start -- webpack.server.hmr",
-    "start": "nps",
+    "start": "nps -- webpack.server.hmr",
     "test": "nps test"
   },
   "jest": {
