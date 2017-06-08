@@ -1,3 +1,4 @@
+import { QuanLyNhanVienLocalService } from './services/QuanLyNhanVienLocalService';
 import { PLATFORM } from 'aurelia-pal';
 import { logger } from './logger';
 import { QuanLyNhanVienServiceInterface } from './services/QuanLyNhanVienServiceInterface';
@@ -9,7 +10,7 @@ import { DialogService } from 'aurelia-dialog';
 import { GridOptions } from "ag-grid";
 // import PLATFORM.global.swal from 'sweetalert';
 
-@inject(QuanLyNhanVienServicePrototype, DialogService)
+@inject(QuanLyNhanVienLocalService, DialogService)
 export class DanhSachNhanVien {
   private gridOptions: GridOptions;
 
@@ -98,7 +99,7 @@ export class DanhSachNhanVien {
           });
         }
         else {
-          this.quanLyNhanVienService.PutNhanVien(this.selectedNhanVien).then((res) => {
+          this.quanLyNhanVienService.PostNhanVien(this.selectedNhanVien).then((res) => {
             PLATFORM.global.swal("Thành công", "Lưu thành công", "success");
             this.createNewDatasource();
           }).catch((err) => {
