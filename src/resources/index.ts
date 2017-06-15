@@ -3,5 +3,6 @@ import { FrameworkConfiguration } from 'aurelia-framework';
 
 export function configure(config: FrameworkConfiguration) {
     config.globalResources([
-        PLATFORM.moduleName("./select2/index")]);
+        PLATFORM.moduleName("./select2/index"),
+        PLATFORM.moduleName("./btn-async/btn-async")]);
 }
