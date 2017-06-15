@@ -18,7 +18,7 @@ export class BtnAsyncAttribute {
        this.element.disabled = true;
        this.element.children[0].style.display = "block";
     this.task().then(rs=>{
-        //console.log('task',rs)
+        console.log('task',rs)
         if(rs==true)
           {
                this.element.disabled = false;
