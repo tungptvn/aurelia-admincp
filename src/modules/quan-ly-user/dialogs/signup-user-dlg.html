@@ -1,0 +1,152 @@
+<template>
+  <style>
+    ux-dialog{
+      width: 800px;
+    }
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+    ux-dialog-container.active{
+      z-index: 99999 !important;
+    }
+    .selectedDePartment {
+      margin-left: 5px;
+      width: 98%;
+      padding: 7px 12px;
+      border: 1px solid rgba(0, 0, 0, .07);
+    }
+
+    .selectPublic {
+      padding: 7px;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid rgba(0, 0, 0, .07);
+    }
+
+    .hrUser {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+      width: 300px
+    }
+
+    .top-select {
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .bottom-row {
+      margin-bottom: 10px
+    }
+
+    .btn-public {
+      width: 200px;
+      margin-left: 30px;
+      background: #f1f1f1
+    }
+  .note-avatar{
+        margin-left: 160px;
+  }
+  .container-btn-top{
+      text-align: right;margin-top:20px
+    }
+
+    .center-avatar{text-align: center;}
+    .btn-avatar{
+          width: 92px;border:1px solid #f1f1f1;padding-bottom:4px;padding-right: 2px;padding-left: 2px;background-color: #e3e3e3;
+    margin-left: 15px;
+    }
+    .label-user{
+      margin-right:20px;margin-top:8px;
+    }
+    .input-user{
+      width:386px;
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>Đăng ký user</h2>
+      <hr>
+      <form class="form-inline">
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label class="label-user">Tên đăng nhập (Citrix)</label>
+          </div>
+          <div class="form-group col-md-7">
+            <input type="text"  class="form-control"  style="width:100%" id="exampleInputEmail2">
+          </div>
+          <button class="btn btn-default" click.delegate="searchSignUpUser()">Tìm kiếm</button>
+        </div>
+      </form>
+      <br>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+          </tr>
+          <tr>
+            <td>Mary</td>
+            <td>Moe</td>
+            <td>mary@example.com</td>
+          </tr>
+          <tr>
+            <td>July</td>
+            <td>Dooley</td>
+            <td>july@example.com</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5>Thông tin đăng ký</h5>
+      <div class="hrUser"></div>
+      <form>
+
+        <div class="row bottom-row">
+          <label class="col-md-3 top-select">Chức vụ</label>
+          <select value.bind="selectedItem.Position" class="col-md-9 selectPublic">
+              <option repeat.for="position of listPosition"
+                      model.bind="position.PositionId">
+                  ${position.Name}
+              </option>
+            </select>
+        </div>
+        <div class="row bottom-row">
+          <label class="col-md-3 top-select">Phòng ban</label>
+
+          <select value.bind="selectedItem.Department" class="col-md-9 selectPublic">
+             <option repeat.for="department of listDePartment"
+                      model.bind="department.DepartmentId">
+                  ${department.Name}
+              </option>
+            </select>
+        </div>
+        <div class="row">
+          <label class="col-md-3 center-avatar">Avatar</label>
+          <input type="text" class="col-md-7" placeholder="Tài khoản" value.bind="selectedItem.UserName">
+          <button class="btn-avatar">Chọn file</button>
+        </div>
+
+        <p class="col-md-9 col-md-offset-3 note-avatar" >Dung lượng tốt đa không quá 1MB.Định dạng file png,jgp ...</p>
+
+
+
+        <div class="row container-btn-top">
+          <button click.delegate="dialogcontroller.cancel()" class="btn-public">Đóng</button>
+          <button type="submit" class="btn-public">Lưu</button>
+        </div>
+
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

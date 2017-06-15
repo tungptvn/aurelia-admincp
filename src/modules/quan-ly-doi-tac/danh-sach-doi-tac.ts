@@ -142,6 +142,8 @@ export class DanhSachDoitac {
     swal(mes1, mes2, "success");
   }
   onRowSelected(e) {
+  
     this.selectedListDoiTac = (this as any).gridOptions.api.getSelectedRows().map(x => new DoiTac(x));
   }
+  
 }

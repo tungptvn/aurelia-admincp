@@ -1,0 +1,146 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+     ux-dialog-container.active{
+      z-index: 99999 !important;
+    }
+.hrUser{margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;width:300px}
+    .container-information{
+       margin:0 30px;
+       width:800px; 
+    }
+    .top-row{
+      margin-top: 10px;
+    }
+    .btn-avatar{
+      width:128px;border: 1px solid #f1f1f1;padding-bottom: 4px;padding-right: 5px;padding-left: 2px;background-color: #e3e3e3;margin-left: 5px;
+    }
+    .selectPublic{
+      padding:7px;background-color:#fff;background-image: none;border: 1px solid rgba(0,0,0,.07);
+    }
+    .top-select{
+      margin-top: 5px;
+    }
+    .container-btn-top{
+      text-align: right;margin-top:20px
+    }
+    .btn-public{
+      width:200px;margin-left:30px;background:#f1f1f1
+    }
+    .bottom-position{
+      margin-bottom:20px;
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>${getTieuDe}</h2>
+      <hr>
+    <form submit.delegate="save()">
+       <h5>Thông tin user</h5>
+        <div class="hrUser"></div>
+        <div class="container-information">
+          <div class="row top-row">
+            <label class="col-md-3">Ngày đăng ký:</label>
+            <label class="col-md-9">${selectedItem.DatedRegister}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Tên đang nhập:</label>
+            <label class="col-md-9">${selectedItem.UserName}</label>
+          </div>
+          
+          <div class="row top-row">
+            <label class="col-md-3">Mã nhân viên:</label>
+            <label class="col-md-9">${selectedItem.EmployeeId}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Tên nhân viên:</label>
+            <label class="col-md-9">${selectedItem.EmployeeName}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Số điện thoại:</label>
+            <label class="col-md-9">${selectedItem.Phone}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Email:</label>
+            <label class="col-md-9">${selectedItem.Email}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Chức vụ:</label>
+            <label class="col-md-9">${selectedItem.Position}</label>
+          </div>
+          <div class="row top-row">
+            <label class="col-md-3">Avatar:</label>
+            <input class="col-md-7" value.bind="selectedItem.Avatar"></input>
+             <button class="btn-avatar">Chọn file</button>
+          </div>
+           <div class="row">
+           
+           <span class="col-md-9 col-md-offset-3">Dung lượng tốt đa không quá 1MB.Định dạng file png,jgp ...</span>
+            
+          </div>
+          <div class="row">
+           
+           <img class="col-md-2 col-md-offset-3" src=""></img><span click.delete="deleteImgAvatar()">Xóa</span>
+            
+          </div>
+        </div>
+        <h5>Thông tin phân loại</h5>
+        <div class="hrUser"></div>
+         <div class="container-information">
+           <div class="row bottom-position">
+            <label class="col-md-3 top-select">Chức vụ</label>
+     
+            <select value.bind="selectedItem.Position" class="col-md-9 selectPublic">
+              <option repeat.for="position of listPosition"
+                      model.bind="position.PositionId">
+                  ${position.Name}
+              </option>
+            </select>
+            </div>
+            <div class="row">
+            <label class="col-md-3 top-select">Phòng ban</label>
+     
+            <select value.bind="selectedItem.Department" class="col-md-9 selectPublic">
+             <option repeat.for="department of listDePartment"
+                      model.bind="department.DepartmentId">
+                  ${department.Name}
+              </option>
+            </select>
+            </div>
+            
+           
+
+         </div>
+        <div class="hrUser"></div>
+        
+        <h5>Trạng thái</h5>
+        <div class="hrUser"></div>
+        <div class="container-information"> 
+            <div class="row">
+            <label class="col-md-3 top-select">Trạng thái</label>
+     
+            <select value.bind="selectedItem.Status" class="col-md-9 selectPublic">
+               <option repeat.for="status of listStatus"
+                      model.bind="status.StatusId">
+                  ${status.Name}
+              </option>
+            </select>
+            </div>
+             
+          </div>
+         <div class="container-information">
+            <div class="container-btn-top">
+              <button  click.delegate="dialogcontroller.cancel()" class="btn-public">Đóng</button>
+              <button  type="submit" class="btn-public">Lưu</button>
+            </div>
+         </div>
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

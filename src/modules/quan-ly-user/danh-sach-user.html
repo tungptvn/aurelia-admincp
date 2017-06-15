@@ -1,0 +1,141 @@
+<template>
+  <style>
+    .ag-cell {
+      text-align: center;
+    }
+
+    .panel .panel-heading {
+      background: transparent;
+      border-radius: 0;
+      border-bottom: 0;
+      padding: 5px 20px 7px;
+      position: relative;
+      z-index: 3;
+      min-height: 48px;
+    }
+
+    .panel-default>.panel-heading {
+      color: #333;
+      background-color: #ddd !IMPORTANT;
+      border-color: #ddd;
+    }
+
+    .panel .panel-body {
+      margin-top: 10px;
+    }
+
+    .btn-create-user {
+      margin-bottom: 20px;
+      float: right;
+      text-align: right;
+    }
+
+    .clear {
+      clear: both;
+    }
+  .buttonRight{
+    text-align:right;margin-bottom:20px;
+  }
+  .buttonPadding{padding:10px 50px}
+  .sumUser{
+     text-align:right;
+  }
+  .configAgGrid{
+    width: 100%; height: 450px;margin-top:30px;
+  }
+  </style>
+  <div class="buttonRight">
+    <button type="button" class="btn btn-default buttonPadding" click.delegate="signUpUser()">ĐĂNG KÝ USER</button>
+  </div>
+  
+  <div class="panel panel-default head-defaut">
+    <div class="panel-heading">
+      <h5 class="header-label"><b>Điều kiện tìm kiếm</b></h5>
+    </div>
+    <div class="panel-body">
+
+      <form submit.delegate="activate()">
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Mã nhân viên</label>
+            <input type="text" class="form-control" placeholder="Mã nhân viên" value.bind="filterModel.EmployeeId">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Tên đăng nhập</label>
+            <input type="text" class="form-control" placeholder="Tên đăng nhập" value.bind="filterModel.UserName">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Chức vụ</label>
+            <select value.bind="filterModel.Position" class="form-control">
+    
+      <option repeat.for="position of listPosition"
+              model.bind="position.PositionId">
+           ${position.Name}
+      </option>
+    </select>
+
+          </div>
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Tên nhân viên</label>
+            <input type="text" class="form-control" placeholder="Tên nhân viên" value.bind="filterModel.EmployeeName">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Số điện thoại</label>
+            <input type="text" class="form-control" placeholder="Số điện thoại" value.bind="filterModel.Phone">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Khối/Phòng ban</label>
+            <select value.bind="filterModel.Department" class="form-control">
+    
+      <option repeat.for="department of listDePartment"
+              model.bind="department.DepartmentId">
+           ${department.Name}
+      </option>
+    </select>
+
+          </div>
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Ngày bắt đầu</label>
+            <input type="text" class="form-control" placeholder="Ngày bắt đầu" value.bind="filterModel.DateFrom">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="exampleInputEmail1">Ngày kết thúc</label>
+            <input type="text" class="form-control" placeholder="Ngày kết thúc" value.bind="filterModel.DateTo">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Trạng thái</label>
+            <select value.bind="filterModel.Status" class="form-control">
+                <option repeat.for="status of listStatus"
+                        model.bind="status.StatusId">
+                    ${status.Name}
+                </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3 col-md-offset-9">
+            <button type="submit" class="btn btn-default form-control ">Tìm kiếm</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+   <div class="panel panel-default head-defaut">
+    <div class="panel-heading">
+      <b class="header-label" style="font-size: 19px;
+    line-height: 28px;">Kết quả tìm kiếm</b>
+      <button type="button" class="btn btn-default" style="float:right;padding:10px 30px 5px 30px">XUẤT EXCEL</button>
+ 
+    </div>
+    <div class="panel-body">
+      <div class="sumUser">
+        Tổng số user tìm được:<i>${listUser.length}</i>
+      </div>
+      <div class="configAgGrid">
+        <ag-grid-aurelia class="ag-blue" #agGrid grid-options.bind="gridOptions" grid-ready.call="onReady()" row-selected.call="onRowSelected($event)"
+          row-clicked.call="onRowClicked($event)">
+
+        </ag-grid-aurelia>
+      </div>
+    </div>
+  </div>
+</template>

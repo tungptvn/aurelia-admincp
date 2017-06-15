@@ -13,5 +13,5 @@ import {
 @inject()
 
 export class QuanLyDoiTacServicePrototype {
- 
+
 }
