@@ -3,16 +3,13 @@ import * as moment from 'moment';
 export class DashBoard {
   myvl = '2';
 
-  doClick = function (cb) {
-    setTimeout(() => { cb() }, 5000)
-
+  doClick(){
+ let promise = new Promise((resolve, reject)=> {
+     setTimeout(()=> {
+        resolve(true);
+     },5000);
+   });
+   return promise;
   }
-
-  constructor() {
-
-  }
-  attached() {
-
-  }
-
-}
+ 
+ }

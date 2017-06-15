@@ -29,7 +29,8 @@
         </div>
       </div>
 
-      <button btn-async task.bind="doClick" class="btn btn-primary">ok</button>
+      <button btn-async="task.call:doClick()" class="btn btn-primary" style="width:100px;position: relative;">ok <i class="fa fa-spinner fa-spin" style="margin-top: -24px;font-size: 24px;display: none;margin-left: 0px;position: absolute;"></i></button>
+      
 
     </div>
     <!--<select name="" id="" select2 class="form-control">

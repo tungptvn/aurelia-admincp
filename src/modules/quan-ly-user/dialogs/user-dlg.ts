@@ -23,7 +23,7 @@ export class UserDlg {
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
   }
   get getTieuDe() {
-    return this.selectedItem.IsExit==false?"Thêm mới user":"Cập nhật user"
+    return this.selectedItem.IsExit==false?"Thêm mới user":"Cập nhật thông tin user"
   }
  async activate(dto: User) {
     this.selectedItem = new User(dto);
