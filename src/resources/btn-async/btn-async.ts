@@ -1,34 +1,23 @@
-import {
-  bindable,
-  bindingMode,
-  inject,
-  customAttribute
-} from 'aurelia-framework';
+import { PLATFORM } from 'aurelia-pal';
+import { bindable, bindingMode, inject, customAttribute } from 'aurelia-framework';
 @inject(Element)
 @customAttribute('btn-async')
 
 export class BtnAsyncAttribute {
-  element: any;
+  element: Element;
   @bindable task;
   constructor(element) {
     this.element = element; //button
   }
   attached() {
-      this.element.addEventListener('click', () => {
-       this.element.disabled = true;
-       this.element.children[0].style.display = "block";
-    this.task().then(rs=>{
-        console.log('task',rs)
-        if(rs==true)
-          {
-               this.element.disabled = false;
-               this.element.children[0].style.display = "none";
-          return;
-          }
+    this.element.addEventListener('click', async () => {
+      var $this = PLATFORM.global.$(this.element);
+      $this.button('loading');
+      await this.task();
+      $this.button('reset');
     });
-    });
-   
+
   }
-  detached() {}
+  detached() { }
 
 }
