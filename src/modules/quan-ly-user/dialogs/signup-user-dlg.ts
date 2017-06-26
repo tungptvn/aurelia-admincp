@@ -22,9 +22,7 @@ export class SignUpUserDlg {
     this.validationcontroller = controllerFactory.createForCurrentScope();
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
   }
-  get getTieuDe() {
-    return this.selectedItem.IsExit==false?"Thêm mới user":"Cập nhật user"
-  }
+ 
  async activate(dto: User) {
     this.selectedItem = new User(dto);
    

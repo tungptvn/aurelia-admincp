@@ -1,7 +1,19 @@
 <template>
   <style>
+    .dropdown-menu>li>a:focus,
+    .dropdown-menu>li>a:hover {
+      color: white;
+      text-decoration: none;
+      background-color: #5bc0de !important;
+    }
+
     .ag-cell {
       text-align: center;
+      overflow: initial!important;
+    }
+
+    .ag-blue .ag-cell-focus {
+      border: none;
     }
 
     .panel .panel-heading {
@@ -24,107 +36,146 @@
       margin-top: 10px;
     }
 
-    .btn-create-user {
+
+    .buttonRight {
+      text-align: right;
       margin-bottom: 20px;
-      float: right;
+    }
+
+    .buttonPadding {
+      padding: 10px 50px
+    }
+
+    .sumUser {
       text-align: right;
     }
 
-    .clear {
-      clear: both;
+    .configAgGrid {
+      width: 100%;
+      height: 450px;
+      margin-top: 30px;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
     }
-  .buttonRight{
-    text-align:right;margin-bottom:20px;
-  }
-  .buttonPadding{padding:10px 50px}
-  .sumUser{
-     text-align:right;
-  }
-  .configAgGrid{
-    width: 100%; height: 450px;margin-top:30px;
-  }
+ select{
+   border:none;
+ }
   </style>
   <div class="buttonRight">
-    <button type="button" class="btn btn-default buttonPadding" click.delegate="signUpUser()">ĐĂNG KÝ USER</button>
+    <button type="button" class="btn btn-default buttonPadding" click.delegate="signUpUser()"><i class="fa fa-file-excel-o" style="padding-right: 4px;"></i>XUẤT EXCEL</button>
+    <button type="button" class="btn btn-complete buttonPadding" click.delegate="signUpUser()"><i class="fa fa-plus" style="padding-right: 4px;"></i>ĐĂNG KÝ USER</button>
   </div>
-  
+
   <div class="panel panel-default head-defaut">
     <div class="panel-heading">
-      <h5 class="header-label"><b>Điều kiện tìm kiếm</b></h5>
+      <h5 class="header-label"><b>ĐIỀU KIỆN TÌM KIẾM</b></h5>
     </div>
     <div class="panel-body">
 
       <form submit.delegate="activate()">
+      
         <div class="row">
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Mã nhân viên</label>
-            <input type="text" class="form-control" placeholder="Mã nhân viên" value.bind="filterModel.EmployeeId">
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Mã nhân viên</label>
+              <input type="text" class="form-control" value.bind="filterModel.EmployeeId">
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Tên đăng nhập</label>
-            <input type="text" class="form-control" placeholder="Tên đăng nhập" value.bind="filterModel.UserName">
-          </div>
-          <div class="form-group col-md-3">
-            <label>Chức vụ</label>
-            <select value.bind="filterModel.Position" class="form-control">
-    
-      <option repeat.for="position of listPosition"
-              model.bind="position.PositionId">
-           ${position.Name}
-      </option>
-    </select>
 
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Tên đăng nhập</label>
+              <input type="text" class="form-control" value.bind="filterModel.UserName">
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Tên nhân viên</label>
-            <input type="text" class="form-control" placeholder="Tên nhân viên" value.bind="filterModel.EmployeeName">
+          
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label >Chức vụ</label>
+              <select value.bind="filterModel.Position" class="full-width">
+                <option repeat.for="position of listPosition"
+                        model.bind="position.PositionId">
+                    ${position.Name}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Số điện thoại</label>
-            <input type="text" class="form-control" placeholder="Số điện thoại" value.bind="filterModel.Phone">
-          </div>
-          <div class="form-group col-md-3">
-            <label>Khối/Phòng ban</label>
-            <select value.bind="filterModel.Department" class="form-control">
-    
-      <option repeat.for="department of listDePartment"
-              model.bind="department.DepartmentId">
-           ${department.Name}
-      </option>
-    </select>
 
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Tên nhân viên</label>
+              <input type="text" class="form-control" value.bind="filterModel.EmployeeName">
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Ngày bắt đầu</label>
-            <input type="text" class="form-control" placeholder="Ngày bắt đầu" value.bind="filterModel.DateFrom">
+
+        </div>
+        <!--End row-->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Số điện thoại</label>
+              <input type="text" class="form-control" value.bind="filterModel.Phone">
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label for="exampleInputEmail1">Ngày kết thúc</label>
-            <input type="text" class="form-control" placeholder="Ngày kết thúc" value.bind="filterModel.DateTo">
+
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Khối/Phòng ban</label>
+              <select value.bind="filterModel.Department" class="full-width">
+                  <option repeat.for="department of listDePartment"
+                        model.bind="department.DepartmentId">
+                    ${department.Name}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label>Trạng thái</label>
-            <select value.bind="filterModel.Status" class="form-control">
+
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Ngày bắt đầu</label>
+              <input type="text" class="form-control" value.bind="filterModel.DateFrom">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Ngày kết thúc</label>
+              <input type="text" class="form-control" value.bind="filterModel.DateTo">
+            </div>
+          </div>
+
+        </div>
+        <!--End row-->
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group form-group-default">
+              <label>Trạng thái</label>
+              <select value.bind="filterModel.Status" class="full-width">
                 <option repeat.for="status of listStatus"
                         model.bind="status.StatusId">
                     ${status.Name}
                 </option>
-            </select>
+              </select>
+            </div>
           </div>
-          <div class="form-group col-md-3 col-md-offset-9">
-            <button type="submit" class="btn btn-default form-control ">Tìm kiếm</button>
-          </div>
+          <div class="col-md-9"></div>
+
         </div>
+        <!--End Row-->
+        <div class="buttonRight">
+          <button type="button" class="btn btn-default buttonPadding" click.delegate="searchUser()"><i class="fa fa-search" style="padding-right: 4px;"></i>TÌM KIẾM</button>
+        </div>
+
       </form>
     </div>
   </div>
-  
-   <div class="panel panel-default head-defaut">
+
+  <div class="panel panel-default head-defaut">
     <div class="panel-heading">
       <b class="header-label" style="font-size: 19px;
-    line-height: 28px;">Kết quả tìm kiếm</b>
-      <button type="button" class="btn btn-default" style="float:right;padding:10px 30px 5px 30px">XUẤT EXCEL</button>
- 
+    line-height: 28px;">KẾT QUẢ TÌM KIẾM</b>
+
+
     </div>
     <div class="panel-body">
       <div class="sumUser">

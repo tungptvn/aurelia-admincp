@@ -73,20 +73,20 @@ export class QuanLyUserLocalService implements QuanLyUserServiceInterface {
     'StatusId': 'Khóa',
     'Name': 'Khóa'
   }];
-  
-  GetStatus(): Promise < Array < any >> {
+
+  GetStatus(): Promise<Array<any>> {
     return Promise.resolve(this.listStatus);
   }
-  GetPositons(): Promise < Array < any >> {
+  GetPositons(): Promise<Array<any>> {
     return Promise.resolve(this.listPosision);
   }
-  GetDepartments(): Promise < Array < any >> {
+  GetDepartments(): Promise<Array<any>> {
     return Promise.resolve(this.listDePartment);
   }
-  GetUsers(filterModel): Promise < Array < User >> {
-    console.log('filterModel',filterModel);
-    if(filterModel==undefined)
-     return Promise.resolve(this.listUser);
+  GetUsers(filterModel): Promise<Array<User>> {
+    console.log('filterModel', filterModel);
+    if (filterModel == undefined)
+      return Promise.resolve(this.listUser);
     return Promise.resolve(this.searchUsers(filterModel));
   }
   searchUsers(model) {
@@ -97,18 +97,18 @@ export class QuanLyUserLocalService implements QuanLyUserServiceInterface {
     })
     return filter;
   }
-   PostUser(user: User): Promise<User> {
-        this.listUser.push(user);
-        return Promise.resolve(user);
-    }
-    PutUser(user: User): Promise<boolean> {
-        this.listUser.forEach((c, i, arr) => {
-            if (c.EmployeeId == user.EmployeeId) {
-                arr[i] = user;
-            }
-        })
-        return Promise.resolve(true);
-    }
-  
+  PostUser(user: User): Promise<User> {
+    this.listUser.push(user);
+    return Promise.resolve(user);
+  }
+  PutUser(user: User): Promise<boolean> {
+    this.listUser.forEach((c, i, arr) => {
+      if (c.EmployeeId == user.EmployeeId) {
+        arr[i] = user;
+      }
+    })
+    return Promise.resolve(true);
+  }
+
 
 }

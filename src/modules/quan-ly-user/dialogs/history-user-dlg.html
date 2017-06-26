@@ -1,0 +1,69 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active {
+      z-index: 99999 !important;
+        
+    }
+
+    .hrUser {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+       width: 360px;
+    }
+
+   
+   
+
+  </style>
+  <ux-dialog style="width: 800px;">
+    <ux-dialog-body>
+      <h2>Lịch sử Login/Logout</h2>
+      <hr>
+      <form submit.delegate="save()">
+       
+        <div class="row">
+          <div class="col-md-5">
+            <div class="form-group form-group-default">
+              <label>Ngày đăng ký</label>
+              <input type="text" value.bind="selectedItem.DatedRegister" class="form-control" disabled>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div class="form-group form-group-default">
+              <label>Tên đăng nhập</label>
+              <input type="text" value.bind="selectedItem.UserName" class="form-control" disabled>
+            </div>
+          </div>
+
+           <div class="col-md-2">
+              <div class="form-group form-group-default" style="position: relative">
+                 
+                 <button class="form-control" style="height: 45px;" click.delegate="importExcel()"><i class="fa fa-file-excel-o" style="position: absolute;margin-left: -14px;"></i>XUẤT EXCEL</button>
+              </div>
+          </div>
+
+        </div>
+        <!--End Row-->
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row"  style="text-align:right">
+        <button class="btn btn-default" click.delegate="dialogcontroller.cancel()"><i class="pg-close"></i>Đóng</button>
+        </div>
+     </form>
+      
+      
+       
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

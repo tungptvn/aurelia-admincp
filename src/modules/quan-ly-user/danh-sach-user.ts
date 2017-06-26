@@ -26,9 +26,13 @@ import {
 import {
   UserDlg
 } from './dialogs/user-dlg';
+import {
+  HistoryUserDlg
+} from './dialogs/history-user-dlg';
 import { SignUpUserDlg} from './dialogs/signup-user-dlg';
 import swal from 'sweetalert';
 import * as $ from 'jquery';
+
 @inject(QuanLyUserLocalService, DialogService)
 export class DanhSachUser {
   private gridOptions: GridOptions;
@@ -39,7 +43,8 @@ export class DanhSachUser {
   private filterModel: FilterUser;
   private listStatus=[];
   constructor(private quanLyUserServiceInterface: QuanLyUserServiceInterface, private dialogService) {
-    (this as any).gridOptions = User.gridOptions;
+   
+       (this as any).gridOptions = User.gridOptions;
      
   }
 
@@ -78,7 +83,8 @@ export class DanhSachUser {
     })
   }
   attached(){
-    
+     
+
   }
 
 
@@ -88,11 +94,33 @@ export class DanhSachUser {
   }
   onRowSelected(event) {
     }
+ onRowClicked(e) {
+   if (e.event.target !== undefined) {
+      this.selectedUser=e.node==undefined?new User():new User(e.node.data);
+      let actionType = e.event.target.getAttribute("data-action-type");
+      switch (actionType) {
+        case "history":
+          return this.historyUser();
+        case "detail":
+         return this.detailUser(); 
+      }
+    }
+  
+   
+    
 
- onRowClicked(event) {
- 
-   this.selectedUser=event.node==undefined?new User():new User(event.node.data);
-     this.dialogService.open({
+  }
+  historyUser(){
+       this.dialogService.open({
+      viewModel: HistoryUserDlg,
+     }).whenClosed((result) => {
+      if (!result.wasCancelled) {
+       
+      }
+    })
+  }
+  detailUser(){
+       this.dialogService.open({
       viewModel: UserDlg,
       model: new User(this.selectedUser)
     }).whenClosed((result) => {
@@ -101,8 +129,6 @@ export class DanhSachUser {
          this.updateUser(result.output);
       }
     })
-    
-
   }
  
   updateUser(selectedUser) {

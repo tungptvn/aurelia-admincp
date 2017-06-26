@@ -1,4 +1,50 @@
 <template>
+
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>WebTemplateId</th>
+            <th>WebsiteId</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+
+          <tr repeat.for="item of itemDataTable">
+            <td>${item.WebTemplateId}</td>
+            <td>${item.WebsiteId}</td>
+            <td><button click.delegate="convertData(item)">></button></td>
+          </tr>
+          <tr>
+        </tbody>
+        <tfooter><i class='fa fa-spinner fa-spin' style="font-size: 141px;
+    color: blue;
+    position: absolute;
+    margin-left: 373px;
+    margin-top: 66px;" if.bind="checkLoading==false"></i>
+        </tfooter>
+      </table>
+    </div>
+    <label style="position:relative">
+    Select product:<br/>
+      <i class='fa fa-spinner fa-spin' style="position: absolute;font-size: 29px;z-index: 9999;margin-left: 109px;" if.bind="loadingSelect==false"></i>
+    <select style="padding: 6px 63px;">
+    
+      <option repeat.for="product of products"
+              value.bind="product.id">
+         ${product.name}
+      </option>
+    </select>
+  </label>
+    <div class="col-md-6">
+      <input id="jstree-tree-search" type="text" placeholder="search">
+      <div id="jstree-tree"></div>
+    </div>
+  </div>
+
   <div class="container-fluid container-fixed-lg">
     <div class="inner">
       <h2>Dashboard</h2>
@@ -30,9 +76,10 @@
       </div>
       <input type="text" value.bind="person.fn"><input value.bind="person.ln"> ${person}
       <button data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" btn-async="task.call:doClick()" class="btn btn-primary">Click Me</button>
-      <button class="btn btn-primary" disabled.bind="isDisable">ok</button>
+      <button class="btn btn-complete " disabled.bind="isDisable">ok</button>
 
     </div>
+
     <!--<select name="" id="" select2 class="form-control">
     <option value="1">1</option>
   </select>

@@ -20,14 +20,7 @@ export class User {
     this.Status = user.Status;
   }
 
-  static columnDefs = [{
-      headerName: "STT",
-      width: 100,
-      cellRenderer: (params) => {
-
-        return +params.node.id++;
-      }
-    }, {
+  static columnDefs = [ {
       headerName: "Ngày đăng ký",
       field: "DatedRegister",
       filter: 'number'
@@ -104,13 +97,22 @@ export class User {
       suppressMenu: true,
       suppressSorting: true,
       template: `
-      <button type="button" class="btn btn-default btn-xs" data-action-type="history">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Lịch sử login
-        </button>
+      <div class="btn-group">
+          <button type="button" uib-dropdown="" dropdown-append-to-body="" class="btn btn-complete  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <i class="pg-settings_small_1"></i>   Hành động <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu"  style="width: 137px;">
+          <li style="position:relative"><i class="fa fa-user" style="position: absolute;margin-top: 10px;margin-left: 17px;"></i><a data-action-type="detail" style="padding-left: 37px;">Chi tiết</a></li>
+          <li style="position:relative"><i class="fa fa-history" style="position: absolute;margin-top: 10px;margin-left: 17px;"></i><a data-action-type="history" style="padding-left: 37px;">Lịch sử Login</a></li>
+            
+          </ul>
+      </div>
       `
     }
+    
   ];
   static gridOptions = {
+    rowHeight: 50,
     rowSelection: 'multiple',
     columnDefs: User.columnDefs,
     rowModelType: 'pagination',

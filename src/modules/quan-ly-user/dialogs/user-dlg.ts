@@ -23,7 +23,7 @@ export class UserDlg {
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
   }
   get getTieuDe() {
-    return this.selectedItem.IsExit==false?"Thêm mới user":"Cập nhật thông tin user"
+    return this.selectedItem.IsExit==false?"THÊM MỚI USER":"CẬP NHẬT THÔNG TIN USER"
   }
  async activate(dto: User) {
     this.selectedItem = new User(dto);
@@ -40,6 +40,10 @@ export class UserDlg {
       }
     })
 
+  }
+  deleteImgAvatar(){
+    console.log('áddfa',(document as any).getElementById('img-avatar'));
+    (document as any).getElementById('img-avatar').src=''
   }
 
 }
