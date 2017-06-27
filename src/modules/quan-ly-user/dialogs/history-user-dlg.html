@@ -7,7 +7,6 @@
 
     ux-dialog-container.active {
       z-index: 99999 !important;
-        
     }
 
     .hrUser {
@@ -15,11 +14,30 @@
       margin-bottom: 20px;
       border: 0;
       border-top: 1px solid #eee;
-       width: 360px;
+      width: 360px;
     }
 
-   
-   
+    .settingSelect {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, .07);
+      padding: 7px;
+    }
+
+    .top-label {
+      margin-top: 7px;
+    }
+
+    .btn-right {
+      text-align: right;
+    }
+    .btn-tag{
+      border-radius: 1px;
+         
+    }
+    .btn-tag2{
+    
+          padding: 7px;
+    }
 
   </style>
   <ux-dialog style="width: 800px;">
@@ -27,43 +45,43 @@
       <h2>Lịch sử Login/Logout</h2>
       <hr>
       <form submit.delegate="save()">
-       
+
         <div class="row">
-          <div class="col-md-5">
-            <div class="form-group form-group-default">
-              <label>Ngày đăng ký</label>
-              <input type="text" value.bind="selectedItem.DatedRegister" class="form-control" disabled>
-            </div>
+
+          <div class="col-md-2">
+
+            <label class="top-label">
+                   Ngày login  &nbsp;<i class="start">*</i>
+               </label>
+
           </div>
 
-          <div class="col-md-5">
-            <div class="form-group form-group-default">
-              <label>Tên đăng nhập</label>
-              <input type="text" value.bind="selectedItem.UserName" class="form-control" disabled>
-            </div>
-          </div>
-
-           <div class="col-md-2">
-              <div class="form-group form-group-default" style="position: relative">
-                 
-                 <button class="form-control" style="height: 45px;" click.delegate="importExcel()"><i class="fa fa-file-excel-o" style="position: absolute;margin-left: -14px;"></i>XUẤT EXCEL</button>
+          <div class="col-md-7">
+            <div class="form-group">
+              <div class="input-daterange input-group settingWidth" id="datepicker-range">
+                <input type="text" class="input-sm form-control" name="start" />
+                <span class="input-group-addon">to</span>
+                <input type="text" class="input-sm form-control" name="end" />
               </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-groud">
+              <button class="btn btn-tag  btn-tag-dark settingWidth btn-tag2" click.delegate="importExcel()">XUẤT EXCEL</button>
+            </div>
           </div>
 
         </div>
         <!--End Row-->
+
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="row"  style="text-align:right">
-        <button class="btn btn-default" click.delegate="dialogcontroller.cancel()"><i class="pg-close"></i>Đóng</button>
+        <div class="row btn-right">
+          <button class="btn btn-tag  btn-tag-dark btn-tag1" click.delegate="dialogcontroller.cancel()">Đóng</button>
         </div>
-     </form>
-      
-      
-       
+      </form>
+
     </ux-dialog-body>
   </ux-dialog>
 </template>

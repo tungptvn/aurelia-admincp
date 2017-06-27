@@ -20,7 +20,14 @@ export class User {
     this.Status = user.Status;
   }
 
-  static columnDefs = [ {
+  static columnDefs = [  {
+      headerName: "STT",
+      width: 100,
+      cellRenderer: (params) => {
+        return +params.node.id + 1;
+      }
+    }, {
+      width:100,
       headerName: "Ngày đăng ký",
       field: "DatedRegister",
       filter: 'number'
@@ -28,6 +35,7 @@ export class User {
     {
       headerName: "Tên đăng nhập",
       field: "UserName",
+      width:100,
       suppressMenu: false,
       suppressSorting: true
     },
@@ -35,6 +43,7 @@ export class User {
       headerName: "Mã nhân viên",
       field: "EmployeeId",
       filter: 'text',
+      width:100,
       filterParams: {
         apply: true,
         newRowsAction: 'keep'
@@ -97,17 +106,9 @@ export class User {
       suppressMenu: true,
       suppressSorting: true,
       template: `
-      <div class="btn-group">
-          <button type="button" uib-dropdown="" dropdown-append-to-body="" class="btn btn-complete  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           <i class="pg-settings_small_1"></i>   Hành động <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu"  style="width: 137px;">
-          <li style="position:relative"><i class="fa fa-user" style="position: absolute;margin-top: 10px;margin-left: 17px;"></i><a data-action-type="detail" style="padding-left: 37px;">Chi tiết</a></li>
-          <li style="position:relative"><i class="fa fa-history" style="position: absolute;margin-top: 10px;margin-left: 17px;"></i><a data-action-type="history" style="padding-left: 37px;">Lịch sử Login</a></li>
-            
-          </ul>
-      </div>
-      `
+          <button data-action-type="history" class="btn btn-tag  btn-tag-dark btn-tag1">Lịch sử Login</button>
+          <button data-action-type="detail" class="btn btn-tag  btn-tag-dark btn-tag1">Chi tiết</button>
+         `
     }
     
   ];
