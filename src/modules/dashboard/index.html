@@ -1,84 +1,27 @@
 <template>
-
-  <div class="row">
-    <div class="col-md-6">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>WebTemplateId</th>
-            <th>WebsiteId</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-
-          <tr repeat.for="item of itemDataTable">
-            <td>${item.WebTemplateId}</td>
-            <td>${item.WebsiteId}</td>
-            <td><button click.delegate="convertData(item)">></button></td>
-          </tr>
-          <tr>
-        </tbody>
-        <tfooter><i class='fa fa-spinner fa-spin' style="font-size: 20px;
-    position: absolute;
-    margin-left: 373px;
-    margin-top: 66px;" if.bind="checkLoading==false"></i>
-        </tfooter>
-      </table>
-    </div>
-    <label style="position:relative">
-    Select product:<br/>
-      <i class='fa fa-spinner fa-spin' style="position: absolute;font-size: 29px;z-index: 9999;margin-left: 109px;" if.bind="loadingSelect==false"></i>
-    <select style="padding: 6px 63px;">
-    
-      <option repeat.for="product of products"
-              value.bind="product.id">
-         ${product.name}
-      </option>
-    </select>
-  </label>
-    <div class="col-md-6">
-      <input id="jstree-tree-search" type="text" placeholder="search">
-      <div id="jstree-tree"></div>
-    </div>
-  </div>
-
   <div class="container-fluid container-fixed-lg">
     <div class="inner">
       <h2>Dashboard</h2>
-      <div class="row placeholders">
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
+    
+      <h3>date range example</h3>
+      <div class="input-daterange input-group" daterangepickter >
+        <input type="text" class="input-sm form-control" name="start" value.bind="d.start" datepicker>
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" value.bind="d.end" datepicker>
       </div>
-      <input type="text" value.bind="person.fn"><input value.bind="person.ln"> ${person}
+      ${d.start} - ${d.end}
+      <hr>
+      <h3>Obserable object example</h3>
+      <input type="text"  class = "form-control" value.bind="person.fn">
+      <input class="form-control" value.bind="person.ln"> 
+      <button class="btn btn-primary" disabled.bind="isDisable">ok</button>
+      <hr>
+      <h3> Async action example </h3>
       <button data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" btn-async="task.call:doClick()" class="btn btn-primary">Click Me</button>
-      <button class="btn btn-complete " disabled.bind="isDisable">ok</button>
+      
+      <hr>
 
     </div>
-
     <!--<select name="" id="" select2 class="form-control">
     <option value="1">1</option>
   </select>
