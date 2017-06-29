@@ -1,0 +1,237 @@
+<template>
+  <style>
+    .dropdown-menu>li>a:focus,
+    .dropdown-menu>li>a:hover {
+      color: white;
+      text-decoration: none;
+      background-color: #5bc0de !important;
+    }
+
+    .ag-cell {
+      text-align: center;
+      overflow: initial!important;
+    }
+
+    .ag-blue .ag-cell-focus {
+      border: none;
+    }
+
+    .panel .panel-heading {
+      background: transparent;
+      border-radius: 0;
+      border-bottom: 0;
+      padding: 5px 20px 7px;
+      position: relative;
+      z-index: 3;
+      min-height: 48px;
+    }
+
+    .panel-default>.panel-heading {
+      color: #333;
+      background-color: #ddd !IMPORTANT;
+      border-color: #ddd;
+    }
+
+    .panel .panel-body {
+      margin-top: 10px;
+    }
+
+    .button-search-role {
+      margin-top: 26px;
+      padding: 6px;
+    }
+
+
+    .configAgGrid {
+      width: 100%;
+      height: 450px;
+      margin-top: 30px;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+    }
+
+    .settingWidth {
+      width: 100%;
+    }
+
+    .importExcel {
+      width: 73%;
+      margin-left: 68px;
+      padding: 5px;
+    }
+
+    .setting-Select-Role {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, .07);
+      padding: 5px;
+    }
+
+    .btn-tag {
+      border-radius: 1px;
+    }
+
+    .btn-action-role {
+      padding: 10px;
+      margin-top: 2px;
+    }
+
+    .button-update-role {
+      margin-top: 27px;
+      padding: 6px;
+    }
+    .container-tree {
+      border: 1px solid #e3e3e3;
+      height: 500px;
+      margin: 0px 14px;
+      border-radius: 11px;
+      padding: 0 24px;
+    }
+    .hrRole {
+      
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #e1e1e1;
+      width: 300px
+    }
+   .btn-create-role{
+         padding: 16px;
+         width: 100%;
+   }
+  </style>
+  <div class="row">
+    <div class='col-md-10'></div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-tag  btn-tag-dark btn-create-role" click.delegate="createRole()" style="width:100%">TẠO MỚI NHÓM QUYỀN</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="panel panel-default head-defaut">
+
+        <div class="panel-heading">
+          <div class='row'>
+            <div style="margin-top:10px">
+              <b>Tìm kiếm nhóm quyền</b>
+            </div>
+
+          </div>
+        </div>
+        <!--End panel heading-->
+
+        <div class="panel-body">
+
+          <div class="row">
+            <form>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label>Tên nhóm quyền</label>
+                  <select value.bind="filterModel.Name" class="setting-Select-Role">
+                            <option repeat.for="groupRole of listGroupRoles"
+                                    model.bind="groupRole.Id">
+                                ${groupRole.Name}
+                            </option>
+                          </select>
+                </div>
+              </div>
+              <!--End Name Group Roles-->
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label>Ngày tạo</label>
+                  <div class="input-daterange input-group settingWidth" id="datepicker-range">
+                    <input type="text" class="input-sm form-control" name="start" />
+                    <span class="input-group-addon">đến</span>
+                    <input type="text" class="input-sm form-control" name="end" />
+                  </div>
+                </div>
+              </div>
+              <!--End Created Date-->
+              <div class="col-md-2">
+                <div class="form-group">
+
+                  <button type="button" class="btn btn-tag  btn-tag-dark button-search-role col-md-3 settingWidth" click.delegate="searchRole()">Tìm</button>
+                </div>
+              </div>
+              <!--End Button Search-->
+
+            </form>
+          </div>
+          <!--End row from-->
+
+          <div class="configAgGrid">
+            <ag-grid-aurelia class="ag-blue" #agGrid grid-options.bind="gridOptions" grid-ready.call="onReady()" row-selected.call="onRowSelected($event)"
+              row-clicked.call="onRowClicked($event)">
+
+            </ag-grid-aurelia>
+          </div>
+          <!--End config AgGrid-->
+
+        </div>
+        <!--End panel body-->
+
+      </div>
+      <!--End panel-->
+
+    </div>
+    <!--search group role-->
+    <div class="col-md-5">
+      <div class="panel panel-default head-defaut">
+
+        <div class="panel-heading">
+          <div class='row'>
+            <div style="margin-top:10px">
+              <b>Chỉnh sửa nhóm quyền</b>
+            </div>
+
+          </div>
+        </div>
+        <!--End panel heading-->
+
+        <div class="panel-body">
+
+          <div class="row">
+            <form>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Tên nhóm quyền</label>
+                  <input type="text" class="input-sm form-control" name="start" />
+                </div>
+              </div>
+              <!--End Name Group Roles-->
+
+              <div class="col-md-4">
+                <div class="form-group">
+
+                  <button type="button" class="btn btn-tag  btn-tag-dark button-update-role col-md-3 settingWidth" click.delegate="updateRole()">Cập nhật</button>
+                </div>
+              </div>
+              <!--End Button Search-->
+
+            </form>
+          </div>
+          <!--End row from-->
+
+          <div class="row">
+            <div class="container-tree">
+              <h5>DANH SÁCH QUYỀN</h5>
+              <div class="hrRole">
+
+              </div>
+
+            </div>
+            <!--End tree-->
+          </div>
+
+
+
+        </div>
+        <!--End panel body-->
+
+      </div>
+      <!--End panel-->
+
+    </div>
+    <!--update group role-->
+  </div>
+  <!--End Row-->
+</template>

@@ -56,14 +56,24 @@ export class App {
         settings: {
           icon: 'pg-tables'
         }
-      }
-      ,
+      },
       {
         route: 'quan-ly-user',
         name: 'quan-ly-user',
         moduleId: PLATFORM.moduleName('../quan-ly-user/index'),
         nav: true,
         title: 'QUẢN LÝ USER',
+        settings: {
+          icon: 'pg-tables'
+        }
+      }
+      ,
+      {
+        route: 'quan-ly-quyen',
+        name: 'quan-ly-quyen',
+        moduleId: PLATFORM.moduleName('../quan-ly-quyen/index'),
+        nav: true,
+        title: 'QUẢN LÝ QUYỀN',
         settings: {
           icon: 'pg-tables'
         }
