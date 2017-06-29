@@ -5,6 +5,7 @@ import { BindingEngine, computedFrom } from "aurelia-binding";
 import { inject } from 'aurelia-dependency-injection';
 import { bindable } from 'aurelia-framework';
 import * as _ from 'lodash';
+const $ = PLATFORM.global.$
 @inject(BindingEngine)
 export class DashBoard {
   d: any = {}
@@ -23,6 +24,17 @@ export class DashBoard {
     return new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, ms) });
   }
   attached() {
-    
+    $('#data').jstree({
+      'core': {
+        'data': [
+          {
+            "text": "Root node", "children": [
+              { "text": "Child node 1" },
+              { "text": "Child node 2" }
+            ]
+          }
+        ]
+      }, "plugins": ["checkbox"]
+    });
   }
 }
