@@ -1,4 +1,5 @@
-import $ from 'jquery';
+import { PLATFORM } from 'aurelia-pal';
+// import $ from 'jquery';
 import * as moment from 'moment';
 import { BindingEngine, computedFrom } from "aurelia-binding";
 import { inject } from 'aurelia-dependency-injection';
@@ -6,6 +7,7 @@ import { bindable } from 'aurelia-framework';
 import * as _ from 'lodash';
 @inject(BindingEngine)
 export class DashBoard {
+  d: any = {}
   person: any = { fn: 'tung', ln: 'pham' };
   private personOrigin = Object.assign({}, this.person);
   constructor() {
@@ -19,5 +21,8 @@ export class DashBoard {
   }
   timerDo(ms = 0) {
     return new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, ms) });
+  }
+  attached() {
+    
   }
 }

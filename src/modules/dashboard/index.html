@@ -2,35 +2,24 @@
   <div class="container-fluid container-fixed-lg">
     <div class="inner">
       <h2>Dashboard</h2>
-      <div class="row placeholders">
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
-        <div class="col-xs-6 col-sm-3 placeholder">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
-            alt="Generic placeholder thumbnail">
-          <h4>Label</h4>
-          <span class="text-muted">Something else</span>
-        </div>
+    
+      <h3>date range example</h3>
+      <div class="input-daterange input-group" daterangepickter >
+        <input type="text" class="input-sm form-control" name="start" value.bind="d.start" datepicker>
+        <span class="input-group-addon">to</span>
+        <input type="text" class="input-sm form-control" name="end" value.bind="d.end" datepicker>
       </div>
-      <input type="text" value.bind="person.fn"><input value.bind="person.ln"> ${person}
-      <button data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" btn-async="task.call:doClick()" class="btn btn-primary">Click Me</button>
+      ${d.start} - ${d.end}
+      <hr>
+      <h3>Obserable object example</h3>
+      <input type="text"  class = "form-control" value.bind="person.fn">
+      <input class="form-control" value.bind="person.ln"> 
       <button class="btn btn-primary" disabled.bind="isDisable">ok</button>
+      <hr>
+      <h3> Async action example </h3>
+      <button data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading" btn-async="task.call:doClick()" class="btn btn-primary">Click Me</button>
+      
+      <hr>
 
     </div>
     <!--<select name="" id="" select2 class="form-control">
