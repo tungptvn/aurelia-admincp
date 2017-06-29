@@ -47,8 +47,8 @@ export class Role {
       suppressSorting: true,
       width: 200,
       template: `
-          <button data-action-type="history" class="btn btn-tag  btn-tag-dark btn-action-role">Chỉnh sửa</button>
-          <button data-action-type="detail" class="btn btn-tag  btn-tag-dark btn-action-role">DS User</button>
+          <button data-action-type="EditRole" class="btn btn-tag  btn-tag-dark btn-action-role">Chỉnh sửa</button>
+          <button data-action-type="linKUser" class="btn btn-tag  btn-tag-dark btn-action-role">DS User</button>
          `
     }
 

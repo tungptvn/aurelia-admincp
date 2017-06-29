@@ -23,122 +23,105 @@ import {
 import {
   QuanLyQuyenServiceInterface
 } from './services/QuanLyQuyenServiceInterface';
-// import {
-//   UserDlg
-// } from './dialogs/user-dlg';
-// import {
-//   HistoryUserDlg
-// } from './dialogs/history-user-dlg';
-// import { SignUpUserDlg} from './dialogs/signup-user-dlg';
-import swal from 'sweetalert';
-import * as $ from 'jquery';
+import {
+  Router
+} from 'aurelia-router';
 
-@inject(QuanLyQuyenLocalService, DialogService)
+import swal from 'sweetalert';
+const $ = PLATFORM.global.$
+
+@inject(QuanLyQuyenLocalService, DialogService, Router)
 export class DanhSachQuyen {
   private gridOptions: GridOptions;
   private listGroupRoles = [];
-  private listDePartment = [];
+
   private listRoles = [];
-  // private selectedUser: User = new User();
+  private selectedRole: Role = new Role();
   private filterModel: FilterRole;
-  private listStatus = [];
-  constructor(private quanLyQuyenServiceInterface: QuanLyQuyenServiceInterface, private dialogService) {
+  private listTreeRoles = [];
+  router: Router;
+  constructor(private quanLyQuyenServiceInterface: QuanLyQuyenServiceInterface, private dialogService, router) {
 
     (this as any).gridOptions = Role.gridOptions;
-
+    this.router = router;
+    $("#jstree-tree").jstree('open_all');
   }
   async activate() {
     this.listRoles = await this.quanLyQuyenServiceInterface.GetRoles(this.filterModel);
     this.listGroupRoles = await this.quanLyQuyenServiceInterface.GetGroupRoles();
-    logger.info('listRoless', this.listRoles);
-    logger.info('listGroupRoles', this.listGroupRoles);
+
+    this.listTreeRoles = await this.quanLyQuyenServiceInterface.GetTreeGroupRoles();
+
     await this.onReady();
   }
-  //   signUpUser(){
-  //     logger.info('signUpUser');
-  //       this.dialogService.open({
-  //       viewModel: SignUpUserDlg,
-  //       model: new User({})
-  //     }).whenClosed((result) => {
-  //       if (!result.wasCancelled) {
-  //         logger.info('result.output',!result.wasCancelled,'modelDialog',JSON.stringify(result.output));
-  //          //this.updateUser(result.output);
-  //       }
-  //     })
-  //   }
-  //   attached(){
+  attached() {
 
 
-  //   }
-  onReady() {
-      this.createNewDatasource();
+    $('#jstree-tree-search').keyup(function () {
+      $('#jstree-tree').jstree('search', $(this).val());
+    });
+    $('#jstree-tree')
+      .jstree({
+        core: {
+
+          themes: {
+            "responsive": false
+          },
+          data: this.listTreeRoles
+        },
+
+        "types": {
+          "default": {
+            "icon": "icon-lg"
+          },
+          "file": {
+            "icon": "icon-lg"
+          }
+        },
+        'search': {
+          "case_insensitive": true,
+          "show_only_matches": true
+        },
+        'plugins': ['search', "checkbox", "types", "state"]
+      });
+    $('#jstree-tree').jstree(true).refresh();
+    $("#jstree-tree").jstree('open_all');
 
   }
-  //   onRowSelected(event) {
-  //     }
-  //  onRowClicked(e) {
-  //    if (e.event.target !== undefined) {
-  //       this.selectedUser=e.node==undefined?new User():new User(e.node.data);
-  //       let actionType = e.event.target.getAttribute("data-action-type");
-  //       switch (actionType) {
-  //         case "history":
-  //           return this.historyUser();
-  //         case "detail":
-  //          return this.detailUser(); 
-  //       }
-  //     }
 
+  onReady() {
+    this.createNewDatasource();
 
+  }
+  onRowSelected(event) {
 
+  }
+  onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      this.selectedRole = e.node == undefined ? new Role() : new Role(e.node.data);
+      console.log('selectedRole', this.selectedRole);
+      console.log('e', e.node.data);
+      let actionType = e.event.target.getAttribute("data-action-type");
+      switch (actionType) {
+        case "EditRole":
+          return this.EditRole();
+        case "linKUser":
+          return this.linkUser();
+      }
+    }
+  }
+  createRole() {
+     $('#jstree-tree').jstree(true).deselect_all();
 
-  //   }
-  //   historyUser(){
-  //        this.dialogService.open({
-  //       viewModel: HistoryUserDlg,
-  //      }).whenClosed((result) => {
-  //       if (!result.wasCancelled) {
+  }
+  EditRole() {
 
-  //       }
-  //     })
-  //   }
-  //   detailUser(){
-  //        this.dialogService.open({
-  //       viewModel: UserDlg,
-  //       model: new User(this.selectedUser)
-  //     }).whenClosed((result) => {
-  //       if (!result.wasCancelled) {
-  //         logger.info('result.output',!result.wasCancelled,'modelDialog',JSON.stringify(result.output));
-  //          this.updateUser(result.output);
-  //       }
-  //     })
-  //   }
+    $('#jstree-tree').jstree("select_node", '#' + this.selectedRole.RoleId, true);
 
-  //   updateUser(selectedUser) {
-  //     if (new User(selectedUser).IsExit) {
-
-  //       this.quanLyUserServiceInterface.PutUser(selectedUser).then(rs => {
-  //         this.showSuccessMessage('Thông báo', 'Cập nhật user thành công');
-  //         this.createNewDatasource();
-  //       }).catch(err => {
-  //         this.showErrorMessage('Thông báo', 'Cập nhật user thất bại')
-  //       });
-
-  //     } else {
-
-  //       this.quanLyUserServiceInterface.PostUser(selectedUser).then(rs => {
-  //         this.showSuccessMessage('Thông báo', 'Tạo mới user thành công')
-  //         this.createNewDatasource();
-  //       }).catch(err => {
-  //         this.showErrorMessage('Thông báo', 'Tạo mới user thất bại')
-  //       });
-  //     }
-  //   }
-  //   showErrorMessage(mes1: string, mes2: string) {
-  //     swal(mes1, mes2, "error");
-  //   }
-  //   showSuccessMessage(mes1: string, mes2: string) {
-  //     swal(mes1, mes2, "success");
-  //   }
+  }
+  linkUser() {
+    this.router.navigateToRoute('quan-ly-user')
+  }
   createNewDatasource() {
     if (!this.listRoles) {
       return;

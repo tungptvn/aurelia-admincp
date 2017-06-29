@@ -111,9 +111,9 @@
              <div class="form-group">
                 <label>Ngày đăng ký</label>
                 <div class="input-daterange input-group settingWidth" id="datepicker-range">
-                          <input type="text" class="input-sm form-control" name="start" />
+                          <input type="text" class="input-sm form-control" name="start" value.bind="filterModel.DateFrom" datepicker/>
                           <span class="input-group-addon">to</span>
-                          <input type="text" class="input-sm form-control" name="end" />
+                          <input type="text" class="input-sm form-control" name="end" value.bind="filterModel.DateTo" datepicker/>
                 </div>
              </div>
            
