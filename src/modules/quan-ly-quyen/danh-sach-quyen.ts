@@ -83,9 +83,12 @@ export class DanhSachQuyen {
           "show_only_matches": true
         },
         'plugins': ['search', "checkbox", "types", "state"]
-      });
-    $('#jstree-tree').jstree(true).refresh();
-    $("#jstree-tree").jstree('open_all');
+      }).on('loaded.jstree', function() {
+         
+  });
+   $("#jstree-tree").jstree('open_all');
+           $('#jstree-tree').jstree(true).refresh();
+   
 
   }
 
@@ -133,7 +136,7 @@ export class DanhSachQuyen {
       },
       rowCount: this.listRoles.length
     };
-    setTimeout(() => this.gridOptions.api.setDatasource(dataSource), 200);
+    setTimeout(() => this.gridOptions.api.setDatasource(dataSource), 1000);
   }
 
 }

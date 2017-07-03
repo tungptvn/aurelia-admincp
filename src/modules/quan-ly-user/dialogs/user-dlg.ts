@@ -10,6 +10,10 @@ import {
 import {
   QuanLyUserServiceInterface
 } from './../services/QuanLyUserServiceInterface';
+import {
+  PLATFORM
+} from 'aurelia-pal';
+const $ = PLATFORM.global.$
 @inject(DialogController, ValidationControllerFactory,QuanLyUserLocalService)
 
 export class UserDlg {
@@ -18,6 +22,7 @@ export class UserDlg {
   listPosition=[];
   listStatus=[];
   listDePartment=[]
+  fileUpload
   constructor(private dialogcontroller: DialogController, private controllerFactory,private quanLyUserServiceInterface:QuanLyUserServiceInterface) {
     this.validationcontroller = controllerFactory.createForCurrentScope();
     this.validationcontroller.addRenderer(new BootstrapFormRenderer());
@@ -42,8 +47,33 @@ export class UserDlg {
 
   }
   deleteImgAvatar(){
-    console.log('áddfa',(document as any).getElementById('img-avatar'));
-    (document as any).getElementById('img-avatar').src=''
-  }
+  $('#img-avatar').removeAttr( "src" );
+ 
+   $("#filename").val("")
+  
+ }
+  HandleBrowseClick()
+{
+    var fileinput = document.getElementById("browse");
+    fileinput.click();
+}
+
+Handlechange()
+{
+    var fileinput = (document as any).getElementById("browse");
+    var textinput = (document as any).getElementById("filename");
+    textinput.value = fileinput.value;
+   var preview = document.querySelector('img');
+  var file    = (document as any).querySelector('input[type=file]').files[0];
+   var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
 
 }

@@ -165,14 +165,18 @@
               Avatar:&nbsp;&nbsp;
             </div>
 
-            <div class="col-md-8">
-              <input type="text" value.bind="selectedItem.Avatar" style="width: 100%;">
+           <div class="col-md-8">
+              <div class='form-group'>
+                <input type="file" id="browse" name="fileupload" style="display: none" change.delegate="Handlechange(event)"/>
+                <input type="text" id="filename" class="form-control" value.bind="selectedItem.UserName"/>
+
+              </div>
             </div>
+
             <div class="col-md-2">
               <div class='form-group'>
-               <button class="btn btn-tag  btn-tag-dark selectFile" >Chọn file</button>
-              </div>
-
+                 <button class="btn btn-tag  btn-tag-dark selectFile" id="fakeBrowse" click.delegate="HandleBrowseClick()" style="padding: 8px;">Chọn file</button>
+               </div>
             </div>
 
 
@@ -189,7 +193,7 @@
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-10">
-              <img style="width: 124px;" src="/assets/img/social-post-image.png" id="img-avatar"></img><i click.delegate="deleteImgAvatar()"
+              <img style="width: 124px;"  id="img-avatar"></img><i click.delegate="deleteImgAvatar()"
                 style=" margin-top: 40px;position: absolute;color: blue;margin-left: 5px;">Xóa</i>
             </div>
           </div>

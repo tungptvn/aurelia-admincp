@@ -34,27 +34,33 @@
       height: 34px;
       width: 100%;
     }
-    .selectFile{
-          width: 100%;
-          padding: 8px;
+
+    .selectFile {
+      width: 100%;
+      padding: 8px;
     }
-   .container-information-user{
-     margin-left:62px;
-   }
-   .top-label{
+
+    .container-information-user {
+      margin-left: 62px;
+    }
+
+    .top-label {
       margin-top: 7px;
-   }
-   .settingWidth{
-     width:100%;
-   }
-    .btn-tag{
+    }
+
+    .settingWidth {
+      width: 100%;
+    }
+
+    .btn-tag {
       border-radius: 1px;
-         
     }
-    .btn-tag1{
-    
-          padding: 10px;
+
+    .btn-tag1 {
+
+      padding: 10px;
     }
+
   </style>
   <ux-dialog>
     <ux-dialog-body>
@@ -116,7 +122,7 @@
       <form>
         <div class="container-information-user">
           <div class="row">
-           
+
             <div class="col-md-2">
               <div class='form-group'>
                 <label class="top-label">Chức vụ  &nbsp; <i class="star">*</i></label>
@@ -134,12 +140,12 @@
                 </select>
               </div>
             </div>
-            
+
           </div>
           <!--End Row-->
 
-           <div class="row">
-           
+          <div class="row">
+
             <div class="col-md-2">
               <div class='form-group'>
                 <label class="top-label">Phòng ban  &nbsp; <i class="star">*</i></label>
@@ -157,12 +163,12 @@
                 </select>
               </div>
             </div>
-            
+
           </div>
           <!--End Row-->
 
-           <div class="row">
-           
+          <div class="row">
+
             <div class="col-md-2">
               <div class='form-group'>
                 <label class="top-label">Avatar</label>
@@ -172,54 +178,55 @@
 
             <div class="col-md-8">
               <div class='form-group'>
-                <input type="text" class="form-control" value.bind="selectedItem.UserName">
+                <input type="file" id="browse" name="fileupload" style="display: none" change.delegate="Handlechange()" />
+                <input type="text" id="filename" class="form-control" value.bind="selectedItem.UserName"/>
+
               </div>
             </div>
 
-             <div class="col-md-2">
+            <div class="col-md-2">
               <div class='form-group'>
-               <button class="btn btn-tag  btn-tag-dark settingWidth selectFile" >Chọn file</button>
-              </div>
-
+                 <button class="btn btn-tag  btn-tag-dark selectFile" id="fakeBrowse" click.delegate="HandleBrowseClick()">Chọn file</button>
+               </div>
             </div>
-            
+
           </div>
           <!--End Row-->
 
-           <div class="row">
-           <div class="col-md-2">
-          </div>
-          <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
               Dung lượng tốt đa không quá 1MB.Định dạng file png,jgp ...
-          </div>  
-        </div>
-        <!--End Row-->
-        <br>
-        <br>
-        <div class="row">
-              <div class="col-md-6">
+            </div>
+          </div>
+          <!--End Row-->
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
 
+            </div>
+            <div class="col-md-3">
+              <div class='form-group'>
+                <button class="btn btn-tag  btn-tag-dark settingWidth btn-tag1" click.delegate="dialogcontroller.cancel()">Đóng</button>
               </div>
-              <div class="col-md-3">
-                        <div class='form-group'>
-                            <button class="btn btn-tag  btn-tag-dark settingWidth btn-tag1" click.delegate="dialogcontroller.cancel()">Đóng</button>
-                        </div>
-                </div>
-                <div class="col-md-3">
-                    <div class='form-group'>
-                        <button type="submit" class="btn btn-tag  btn-tag-dark settingWidth btn-tag1">Lưu</button>
-                    </div>
-                </div>
-        </div>
-        <!--End Row-->
-        <br>
-        <br>
-        
+            </div>
+            <div class="col-md-3">
+              <div class='form-group'>
+                <button type="submit" class="btn btn-tag  btn-tag-dark settingWidth btn-tag1">Lưu</button>
+              </div>
+            </div>
+          </div>
+          <!--End Row-->
+          <br>
+          <br>
+
         </div>
         <!--container-information-user-->
-         (<i class="star">*</i>) Thông tin bắt buộc
-      
-         
+        (<i class="star">*</i>) Thông tin bắt buộc
+
+
       </form>
     </ux-dialog-body>
   </ux-dialog>

@@ -45,38 +45,38 @@ export class QuanLyQuyenLocalService implements QuanLyQuyenServiceInterface {
       "RoleId": 1,
       "CreatedByDate": "",
       "Name": "Quản lý Landing Page",
-      "Position": "Chăm sóc khách hàng"
+      "Department": "Chăm sóc khách hàng"
 
     }, {
       "RoleId": 2,
       "CreatedByDate": "",
       "Name": "Quản lý banner",
-      "Position": 'OMNI'
+      "Department": 'OMNI'
 
     },
     {
       "RoleId": 3,
       "CreatedByDate": "",
       "Name": "Quản lý comment",
-      "Position": "FI"
+      "Department": "FI"
     },
     {
       "RoleId": 4,
       "CreatedByDate": "",
       "Name": "Quản lý user",
-      "Position": "Kinh Doanh Mạng"
+      "Department": "Kinh Doanh Mạng"
     },
     {
       "RoleId": 5,
       "CreatedByDate": "",
       "Name": "Quản lý quyền",
-      "Position": "FI"
+      "Department": "FI"
     },
     {
       "RoleId": 6,
       "CreatedByDate": "",
       "Name": "Quản lý log",
-      "Position": "Kinh Doanh Mạng"
+      "Department": "Kinh Doanh Mạng"
     }
   ];
   treeRole = [{
