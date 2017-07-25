@@ -9,7 +9,7 @@
         <span class="input-group-addon">to</span>
         <input type="text" class="input-sm form-control" name="end" value.bind="d.end" datepicker>
       </div>
-      ${d.start} - ${d.end}
+      binding : ${d.start} - ${d.end}
       <hr>
       <h3>Obserable object example</h3>
       <input type="text"  class = "form-control" value.bind="person.fn">
@@ -24,6 +24,11 @@
       Xem document <a href="https://www.jstree.com/"> jstree</a>
       
       <div id="data"></div>
+
+      <h3>select2</h3>
+
+      <select select2="c-data.bind : users ; c-text :login ; c-value:id "   value.bind="selectedValue"></select> 
+      ${selectedValue}
     </div>
     <!--<select name="" id="" select2 class="form-control">
     <option value="1">1</option>

@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 const $ = PLATFORM.global.$
 @inject(BindingEngine)
 export class DashBoard {
+  users = fetch('https://api.github.com/users')
   d: any = {}
   person: any = { fn: 'tung', ln: 'pham' };
   private personOrigin = Object.assign({}, this.person);
