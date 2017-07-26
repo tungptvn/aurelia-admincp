@@ -1,0 +1,298 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active {
+      z-index: 99999 !important;
+    }
+
+    .hrUser {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #e1e1e1;
+      width: 360px;
+    }
+
+
+    .start {
+      color: red
+    }
+
+    select {
+      border: none;
+    }
+
+    .delete-avatar {
+      position: absolute;
+      color: blue;
+      margin-top: 42px;
+    }
+
+    .container-detail {
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    .top-user {
+      margin-top: 20px;
+    }
+
+    .settingSelect {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, .07);
+      padding: 7px;
+    }
+.settingWidth{
+         width:100%;
+    }
+     .selectFile{
+          width: 100%;
+    }
+    .btn-tag{
+      border-radius: 1px;
+         
+    }
+    .btn-tag1{
+    
+          padding: 10px;
+    }
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>Chi tiết user/ Cập nhật thông tin</h2>
+      <hr>
+      <form submit.delegate="save()">
+        <h5>Thông tin user</h5>
+        <div class="hrUser"></div>
+        <div class="container-detail">
+          <div class="row top-user">
+            <div class="col-md-2">
+              Ngày đăng ký:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.DatedRegister}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Tên đăng nhập:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.UserName}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Mã nhân viên:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.EmployeeId}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Tên nhân viên:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.UserName}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Số điện thoại:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.Phone}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Email:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.Email}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Chức danh:&nbsp;&nbsp;
+            </div>
+
+            <div class="col-md-10">
+              ${selectedItem.Position}
+            </div>
+
+
+          </div>
+          <!--End row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">
+              Avatar:&nbsp;&nbsp;
+            </div>
+
+           <div class="col-md-8">
+              <div class='form-group'>
+                <input type="file" id="browse" name="fileupload" style="display: none" change.delegate="Handlechange(event)"/>
+                <input type="text" id="filename" class="form-control" value.bind="selectedItem.UserName"/>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class='form-group'>
+                 <button class="btn btn-tag  btn-tag-dark selectFile" id="fakeBrowse" click.delegate="HandleBrowseClick()" style="padding: 8px;">Chọn file</button>
+               </div>
+            </div>
+
+
+          </div>
+          <!--End row-->
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              Dung lượng tốt đa không quá 1MB.Định dạng file png,jgp ...
+            </div>
+          </div>
+          <!--End row-->
+
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <img style="width: 124px;"  id="img-avatar"></img><i click.delegate="deleteImgAvatar()"
+                style=" margin-top: 40px;position: absolute;color: blue;margin-left: 5px;">Xóa</i>
+            </div>
+          </div>
+          <!--End row-->
+
+
+        </div>
+        <!--End container detail-->
+        <br>
+
+
+        <h5>Thông tin phân loại</h5>
+        <div class="hrUser"></div>
+
+        <div class="container-detail">
+
+          <div class="row top-user">
+            <div class="col-md-2">Chức vụ &nbsp <i class="start">*</i></div>
+            <div class="col-md-10">
+              <select value.bind="selectedItem.Position" class="settingSelect">
+                      <option repeat.for="position of listPosition"
+                              model.bind="position.PositionId">
+                          ${position.Name}
+                      </option>
+                    </select>
+            </div>
+          </div>
+          <!--End Row-->
+
+          <div class="row top-user">
+            <div class="col-md-2">Phòng ban &nbsp <i class="start">*</i></div>
+            <div class="col-md-10">
+              <select value.bind="selectedItem.Position" class="settingSelect">
+                        <option repeat.for="position of listPosition"
+                                model.bind="position.PositionId">
+                            ${position.Name}
+                        </option>
+                      </select>
+            </div>
+          </div>
+          <!--End Row-->
+
+        </div>
+        <!--End container-detail-->
+
+
+        <div class="hrUser"></div>
+
+        <h5>Trạng thái</h5>
+        <div class="hrUser"></div>
+
+        <div class="container-detail">
+
+          <div class="row top-user">
+            <div class="col-md-2">Trạng thái<i class="start">*</i></div>
+            <div class="col-md-10">
+              <select value.bind="selectedItem.Status" class="settingSelect">
+               <option repeat.for="status of listStatus"
+                      model.bind="status.StatusId">
+                  ${status.Name}
+              </option>
+            </select>
+            </div>
+          </div>
+          <!--End Row-->
+
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+               * Chú thích:<br> - Tạm khóa: user không thể login và sử dụng các tính năng trong admincp. Có thể mở khóa
+              để user hoạt động trở lại.<br> - Hủy: khi user nghỉ việc hoặc chuyển công tác sang phòng ban khác.
+
+            </div>
+          </div>
+          <!--End Row-->
+          
+           <div class="row top-user">
+              <div class="col-md-6">
+
+              </div>
+              <div class="col-md-3">
+                        <div class='form-group'>
+                            <button class="btn btn-tag  btn-tag-dark settingWidth btn-tag1" click.delegate="dialogcontroller.cancel()">Đóng</button>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class='form-group'>
+                        <button type="submit" class="btn btn-tag  btn-tag-dark settingWidth btn-tag1">Lưu</button>
+                    </div>
+                </div>
+        </div>
+        <!--End Row-->
+
+       </div>
+        <!--End container-detail-->
+        
+       
+        (<i class="start">*</i>) Thông tin bắt buộc
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

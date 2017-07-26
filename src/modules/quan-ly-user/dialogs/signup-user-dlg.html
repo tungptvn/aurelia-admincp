@@ -1,0 +1,233 @@
+<template>
+  <style>
+    ux-dialog {
+      width: 830px;
+    }
+
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+    ux-dialog-container.active {
+      z-index: 99999 !important;
+    }
+
+    select {
+      border: none;
+    }
+
+    .hrUser {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #e1e1e1;
+      width: 300px
+    }
+
+    i.star {
+      color: red
+    }
+
+    .settingSelect {
+      padding: 7px;
+      height: 34px;
+      width: 100%;
+    }
+
+    .selectFile {
+      width: 100%;
+      padding: 8px;
+    }
+
+    .container-information-user {
+      margin-left: 62px;
+    }
+
+    .top-label {
+      margin-top: 7px;
+    }
+
+    .settingWidth {
+      width: 100%;
+    }
+
+    .btn-tag {
+      border-radius: 1px;
+    }
+
+    .btn-tag1 {
+
+      padding: 10px;
+    }
+
+  </style>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>ĐĂNG KÝ USER</h2>
+      <hr>
+      <form>
+        <div class="row">
+
+          <div class="col-md-3">
+            <div class="form-group">
+
+              <label class="top-label">Tên đăng nhập (Citrix)</label>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="form-group">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="form-group">
+              <button class="btn btn-tag  btn-tag-dark btn-tag1 form-control" click.delegate="searchSignUpUser()">
+                   Tìm
+                </button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+      <br>
+
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Tên đăng nhập</th>
+            <th>Mã nhân viên</th>
+            <th>Tên nhân viên</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Chức danh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>john@example.com</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <h5>Thông tin đăng ký</h5>
+      <div class="hrUser"></div>
+      <form>
+        <div class="container-information-user">
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class='form-group'>
+                <label class="top-label">Chức vụ  &nbsp; <i class="star">*</i></label>
+              </div>
+
+            </div>
+
+            <div class="col-md-10">
+              <div class='form-group'>
+                <select value.bind="selectedItem.Position" class="settingSelect">
+                    <option repeat.for="position of listPosition"
+                            model.bind="position.PositionId">
+                        ${position.Name}
+                    </option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <!--End Row-->
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class='form-group'>
+                <label class="top-label">Phòng ban  &nbsp; <i class="star">*</i></label>
+              </div>
+
+            </div>
+
+            <div class="col-md-10">
+              <div class='form-group'>
+                <select value.bind="selectedItem.Department" class="settingSelect">
+                      <option repeat.for="department of listDePartment"
+                          model.bind="department.DepartmentId">
+                      ${department.Name}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <!--End Row-->
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class='form-group'>
+                <label class="top-label">Avatar</label>
+              </div>
+
+            </div>
+
+            <div class="col-md-8">
+              <div class='form-group'>
+                <input type="file" id="browse" name="fileupload" style="display: none" change.delegate="Handlechange()" />
+                <input type="text" id="filename" class="form-control" value.bind="selectedItem.UserName"/>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class='form-group'>
+                 <button class="btn btn-tag  btn-tag-dark selectFile" id="fakeBrowse" click.delegate="HandleBrowseClick()">Chọn file</button>
+               </div>
+            </div>
+
+          </div>
+          <!--End Row-->
+
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
+              Dung lượng tốt đa không quá 1MB.Định dạng file png,jgp ...
+            </div>
+          </div>
+          <!--End Row-->
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-3">
+              <div class='form-group'>
+                <button class="btn btn-tag  btn-tag-dark settingWidth btn-tag1" click.delegate="dialogcontroller.cancel()">Đóng</button>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class='form-group'>
+                <button type="submit" class="btn btn-tag  btn-tag-dark settingWidth btn-tag1">Lưu</button>
+              </div>
+            </div>
+          </div>
+          <!--End Row-->
+          <br>
+          <br>
+
+        </div>
+        <!--container-information-user-->
+        (<i class="star">*</i>) Thông tin bắt buộc
+
+
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>
