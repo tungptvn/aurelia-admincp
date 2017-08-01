@@ -1,0 +1,28 @@
+<template>
+  <style>
+    ux-dialog-overlay.active {
+      background-color: black;
+      opacity: .5;
+    }
+
+  </style>
+  <ux-dialog>
+
+    <ux-dialog-body>
+      <h2>${getTieuDe}</h2>
+      <form submit.delegate="save()">
+        <div class="form-group">
+          <label>Img</label>
+          <input type="text" class="form-control" value.bind="bannerDto.Img & validate">
+        </div>
+        <div class="form-group">
+          <label>Note</label>
+          <input type="text" class="form-control" value.bind="bannerDto.Note & validate">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Lưu</button>
+        <button class="btn btn-warning" click.trigger="dialogcontroller.cancel()">Hủy</button>
+      </form>
+    </ux-dialog-body>
+  </ux-dialog>
+</template>

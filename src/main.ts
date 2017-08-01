@@ -4,10 +4,6 @@ import { Aurelia } from 'aurelia-framework';
 import { PLATFORM } from 'aurelia-pal';
 
 import "sweetalert";
-import  "ag-grid/dist/styles/ag-grid.css";
-import "ag-grid/dist/styles/theme-blue.css";
-import "jstree/dist/themes/default/style.min.css";
-
 // comment out if you don't want a Promise polyfill (remove also from webpack.config.js)
 import * as Bluebird from 'bluebird';
 

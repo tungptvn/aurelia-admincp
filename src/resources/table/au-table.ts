@@ -9,7 +9,7 @@ export class AureliaTableCustomAttribute {
   @bindable filters;
 
   @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
-  @bindable pageSize;
+  @bindable ({defaultBindingMode: bindingMode.twoWay}) pageSize;
   @bindable({defaultBindingMode: bindingMode.twoWay}) totalItems;
 
   @bindable({defaultBindingMode: bindingMode.twoWay}) api;

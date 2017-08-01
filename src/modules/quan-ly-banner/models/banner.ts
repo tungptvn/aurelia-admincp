@@ -1,4 +1,5 @@
 export class Banner {
+    ID: number
     Name: string
     Img: string
     Status: string

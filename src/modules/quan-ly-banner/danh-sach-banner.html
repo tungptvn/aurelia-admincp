@@ -7,15 +7,16 @@
             <h5 class="m-t-0 ">
               Danh sách khách hàng
             </h5>
+            <button click.delegate="runCreate()">Tao banner</button>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-8">
-                <form role="form" lpformnum="2" class="form-filter">
+                <form role="form" lpformnum="2" class="form-filter" submit.delegate="runFilter()">
                   <div class="form-group">
-                    <label>Từ khóa</label>
+                    <label>Img</label>
                     <span class="help">e.g. </span>
-                    <input type="email" class="form-control input-sm">
+                    <input type="email" class="form-control input-sm" value.bind="filter.where.Img">
                   </div>
                   <div class="form-group long">
                     <label>THEO NGÀY</label>
@@ -26,55 +27,35 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-primary btn-cons btn-sm m-t-25" type="button"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    <button class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                   </div>
                 </form>
               </div>
 
             </div>
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover" aurelia-table="data.bind: entityList; display-data.bind: $displayData; 
+                                page-size.bind: pageSize; current-page.bind: currentPage;">
                 <thead>
                   <tr>
-                    <th>Mã khách hàng</th>
-                    <th>Tên khách hàng</th>
-                    <th>Hành động</th>
+                    <th>Img</th>
+                    <th>Status</th>
+                    <th>Action </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr repeat.for="item of entityList">
-                    <td>${item.login}</td>
-                    <td>${item.avatar_url}</td>
+                  <tr repeat.for="item of $displayData">
+                    <td>${item.Img}</td>
+                    <td>${item.Status}</td>
                     <td class="v-align-middle">
                       <div class="btn-group sm-m-t-10">
-                        <button type="button" class="btn btn-default btn-sm text-primary" data-toggle="modal" data-target="#modalKhachHang"><i class="fa fa-edit"></i> Chỉnh sữa</button>
-                        <button type="button" class="btn btn-default btn-sm text-danger" data-toggle="modal" data-target="#modalXoa"><i class="fa fa-trash-o"></i> Xóa</button>
+                        <button type="button" class="btn btn-default btn-sm text-primary"><i class="fa fa-edit"></i> Chỉnh sữa</button>
+                        <button type="button" class="btn btn-default btn-sm text-danger"><i class="fa fa-trash-o"></i> Xóa</button>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
-
-              <!-- <nav aria-label="Page navigation" class="text-center">
-                <ul class="pagination">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                                <span aria-hidden="true"> <i class="fa fa-angle-left"></i> </span>
-                              </a>
-                  </li>
-                  <li><a href="javascript:void(0);">1</a></li>
-                  <li><a href="javascript:void(0);">2</a></li>
-                  <li><a href="javascript:void(0);">3</a></li>
-                  <li><a href="javascript:void(0);">4</a></li>
-                  <li><a href="javascript:void(0);">5</a></li>
-                  <li>
-                    <a href="javascript:void(0);" aria-label="Next">
-                                <span aria-hidden="true"> <i class="fa fa-angle-right"></i> </span>
-                              </a>
-                  </li>
-                </ul>
-              </nav> -->
             </div>
             <div class="row">
               <div class="col-md-8">

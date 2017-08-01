@@ -6,6 +6,7 @@ export interface BaseService<T> {
     Post(T: T): Promise<T>
     Put(T: T): Promise<boolean>
     Delete(id: number): Promise<boolean>
+    DeleteMany(Ids: Array<number>): Promise<boolean>
 }
 
 

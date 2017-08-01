@@ -3,4 +3,11 @@ export interface ViewModelBase<T> {
     selected: T
     selectedList: Array<T>
     filter: any
+    runFilter()
+    runCreate()
+    runUpdate()
+    runDelete()
+    runDeleteMany()
+
+
 }
