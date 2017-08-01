@@ -3,16 +3,15 @@ import { childViewer } from './../../helpers/child-viewer';
 import { inlineView } from 'aurelia-templating';
 import { inject } from 'aurelia-dependency-injection';
 import { Router, RouterConfiguration } from 'aurelia-router';
-import {logger} from './logger'
-
+import { logger } from "./logger";
 @inlineView(childViewer)
 export class QuanLyNhanVien {
     router: Router;
-    heading = 'Quản lý nhân viên';
+    heading = 'Quản lý Banner';
     configureRouter(config: RouterConfiguration, router: Router) {
         config.map([
-            { route: ['', 'danh-sach-nhan-vien'], name: 'danh-sach-nhan-vien', moduleId: PLATFORM.moduleName( './danh-sach-nhan-vien'), nav: true, title: 'Danh sách nhân viên' }]);
+            { route: ['', 'danh-sach-banner'], name: 'danh-sach-banner', moduleId: PLATFORM.moduleName('./danh-sach-banner'), nav: true, title: 'Danh sách banner' }]);
         this.router = router;
-        logger.info('router', this.router)
+        logger.debug('router', this.router)
     }
 }

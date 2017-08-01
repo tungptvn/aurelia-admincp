@@ -1,30 +1,29 @@
 export const childViewer: string = `<template>
-
-  <div class="bar">
-    <div class="pull-right">
-      <a href="#" class="text-black padding-10 visible-xs-inline visible-sm-inline pull-right m-t-10 m-b-10 m-r-10 on" data-pages="horizontal-menu-toggle">
-        <i class=" pg-close_line"></i>
-      </a>
-    </div>
-    <div class="bar-inner">
-      <ul>
-        <li repeat.for="row of router.navigation" class="\${row.isActive ? 'active' : ''}">
-          <a href.bind="row.href">
-            <span class="">\${row.title}</span>
-          </a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-
-
   <!-- START CONTAINER FLUID -->
   <div class="container-fluid container-fixed-lg">
+    <div class="row">
+            <h3 class="page-title">\${heading}</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+             <ul class="nav nav-tabs nav-tabs-simple nav-tabs-primary " role="tablist" data-init-reponsive-tabs="collapse">
+               <li repeat.for="row of router.navigation" class="\${row.isActive ? 'active' : ''}">
+                  <a href.bind="row.href">
+                   <span class="">\${row.title}</span>
+                  </a>
+               </li>
+              </ul>
+              <div class="tab-content">
+                <router-view></router-view>
+              </div>
+            </div>
+        </div>
+    </div>
+ 
     <div class="inner">
-        
     <!-- BEGIN PlACE PAGE CONTENT HERE -->
-    <router-view></router-view>
+    
 
     <!-- END PLACE PAGE CONTENT HERE -->
   </div>

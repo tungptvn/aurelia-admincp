@@ -24,6 +24,10 @@ export class App {
             {
                 route: 'quan-ly-nhan-vien', name: 'quan-ly-nhan-vien', moduleId: PLATFORM.moduleName('../quan-ly-nhan-vien/index'), nav: true, title: 'Quản lý nhân viên',
                 settings: { icon: 'pg-tables' }
+            },
+             {
+                route: 'danh-sach-banner', name: 'danh-sach-banner', moduleId: PLATFORM.moduleName('../quan-ly-banner/index'), nav: true, title: 'Quản lý Banner',
+                settings: { icon: 'pg-tables' }
             }
 
         ]);

@@ -2,6 +2,7 @@ import { PLATFORM } from 'aurelia-pal';
 import { inject } from 'aurelia-dependency-injection';
 import { Aurelia } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
+import "./helpers/axiosClient"
 export class App {
   router: Router;
   userInfo: any;

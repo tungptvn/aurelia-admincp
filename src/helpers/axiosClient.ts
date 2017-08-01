@@ -3,9 +3,5 @@ import { AppSetting } from './../appsettings/index';
 import axios, { AxiosInstance } from 'axios';
 import { Container } from "aurelia-dependency-injection";
 let storage = Container.instance.get(STORAGE);
-let httpClient: AxiosInstance;
-httpClient = axios.create({
-    baseURL: AppSetting.apiEndPoint,
-    headers: { 'Authorization': storage.get(STORAGE.tokenKey) }
-});
-export default httpClient; 
+axios.defaults.baseURL = AppSetting.apiEndPoint;
+storage.get(STORAGE.tokenKey) ? axios.defaults.headers.common['Authorization'] = storage.get(STORAGE.tokenKey) : null

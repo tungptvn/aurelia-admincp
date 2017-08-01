@@ -49,3 +49,4 @@ export class Select2CustomAttribute {
     return obj
   }
 }
+
