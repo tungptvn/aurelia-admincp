@@ -1,0 +1,208 @@
+<template>
+  <style>
+    .dropdown-menu>li>a:focus,
+    .dropdown-menu>li>a:hover {
+      color: white;
+      text-decoration: none;
+      background-color: #5bc0de !important;
+    }
+    .ag-cell {
+      text-align: center;
+      overflow: initial!important;
+    }
+    .ag-blue .ag-cell-focus {
+      border: none;
+    }
+    .panel .panel-heading {
+      background: transparent;
+      border-radius: 0;
+      border-bottom: 0;
+      padding: 5px 20px 7px;
+      position: relative;
+      z-index: 3;
+      min-height: 48px;
+    }
+    .panel-default>.panel-heading {
+      color: #333;
+      background-color: #ddd !IMPORTANT;
+      border-color: #ddd;
+    }
+    .panel .panel-body {
+      margin-top: 10px;
+    }
+    .buttonPadding {
+      padding: 10px 50px
+    }
+
+    .sumUser {
+      text-align: right;
+    }
+
+    .configAgGrid {
+      width: 100%;
+      height: 450px;
+      margin-top: 30px;
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+    }
+    .settingWidth{
+         width:100%;
+    }
+    .importExcel{
+          width: 73%;
+    margin-left: 68px;
+    padding: 5px;
+    }
+    .settingSelect{
+      width: 100%;border: 1px solid rgba(0,0,0,.07);padding: 7px;
+    }
+     .btn-tag{
+      border-radius: 1px;
+         
+    }
+    .btn-tag1{
+      padding:10px;
+         
+    }
+  </style>
+  <div class="row">
+    <div class='col-md-10'></div>
+     <div class="col-md-2">
+          <button type="button" class="btn btn-tag  btn-tag-dark btn-tag1" click.delegate="signUpUser()" style="width:100%">ĐĂNG KÝ USER</button>
+      </div>
+  </div>
+ <br>
+  <div class="panel panel-default head-defaut">
+    <div class="panel-heading">
+      <h5 class="header-label"><b>ĐIỀU KIỆN TÌM KIẾM</b></h5>
+    </div>
+    <div class="panel-body">
+
+      <form submit.delegate="activate()">
+      
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Mã nhân viên</label>
+              <input type="text" class="form-control" value.bind="filterModel.EmployeeId">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Tên đăng nhập</label>
+              <input type="text" class="form-control" value.bind="filterModel.UserName">
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="form-group">
+              <label >Chức vụ</label>
+              <select value.bind="filterModel.Position" class="settingSelect">
+                <option repeat.for="position of listPosition"
+                        model.bind="position.PositionId">
+                    ${position.Name}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+             <div class="form-group">
+                <label>Ngày đăng ký</label>
+                <div class="input-daterange input-group settingWidth" id="datepicker-range">
+                          <input type="text" class="input-sm form-control" name="start" value.bind="filterModel.DateFrom" datepicker/>
+                          <span class="input-group-addon">to</span>
+                          <input type="text" class="input-sm form-control" name="end" value.bind="filterModel.DateTo" datepicker/>
+                </div>
+             </div>
+           
+          </div>
+
+        </div>
+        <!--End row-->
+        <div class="row">
+          
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Tên nhân viên</label>
+              <input type="text" class="form-control" value.bind="filterModel.EmployeeName">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-groud">
+                  <label>Số điện thoại</label>
+                 <input type="text" class="form-control" value.bind="filterModel.Phone">
+            </div>
+           </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Khối/Phòng ban</label>
+              <select value.bind="filterModel.Department" class="settingSelect">
+                  <option repeat.for="department of listDePartment"
+                        model.bind="department.DepartmentId">
+                    ${department.Name}
+                </option>
+              </select>
+             </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+             <label>Trạng thái</label>
+              <select value.bind="filterModel.Status" class="settingSelect">
+                <option repeat.for="status of listStatus"
+                        model.bind="status.StatusId">
+                    ${status.Name}
+                </option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <!--End row-->
+        <div class="row">
+           <div class="col-md-9">
+          </div>
+           <div class="col-md-3">
+             <div class="form-group">
+                <label></label>
+                  <button type="button" class="btn btn-tag  btn-tag-dark btn-tag1 buttonPadding col-md-3 settingWidth" click.delegate="searchUser()">TÌM KIẾM</button>
+             </div>
+           
+          </div>
+        </div>
+        <!--End row-->
+       
+
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-default head-defaut">
+    <div class="panel-heading">
+      <div class='row'>
+      <div class="col-md-10" style="margin-top:10px">
+          <b>KẾT QUẢ TÌM KIẾM</b>
+      </div>
+      
+      <div class="col-md-2">
+      <button type="button" class="importExcel" click.delegate="importExcel()">XUẤT EXCEL</button>
+      </div>
+       </div>
+    </div>
+    <div class="panel-body">
+      <div class="sumUser">
+        Tổng số user tìm được:<i>${listUser.length}</i>
+      </div>
+      <div class="configAgGrid">
+        <ag-grid-aurelia class="ag-blue" #agGrid grid-options.bind="gridOptions" grid-ready.call="onReady()" row-selected.call="onRowSelected($event)"
+          row-clicked.call="onRowClicked($event)">
+
+        </ag-grid-aurelia>
+      </div>
+    </div>
+  </div>
+</template>
