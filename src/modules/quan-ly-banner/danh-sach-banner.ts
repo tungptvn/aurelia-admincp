@@ -9,10 +9,10 @@ import { DialogService } from "aurelia-dialog";
 @inject(BannerServiceImpl, DialogService)
 export class DanhSachKhachHang implements ViewModelBase<Banner> {
     entityList
-    selected: Banner; 
+    selected: Banner;
     selectedList: Banner[];
     pageSize = 5;
-    filter: Filter = { skip: 1, limit: 2 };
+    filter: Filter = { skip: 0, limit: 10 };
 
     constructor(private bannerSrv: BannerService, private dialogService: DialogService) {
 
