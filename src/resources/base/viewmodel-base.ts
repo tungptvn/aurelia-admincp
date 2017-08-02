@@ -1,6 +1,6 @@
 export interface ViewModelBase<T> {
-    entityList: Array<T>
-    selected: T
+    items: Array<T>
+    selectedItem: T
     selectedList: Array<T>
     filter: any
     runFilter()

@@ -8,11 +8,12 @@ import { logger } from "./logger";
 import { DialogService } from "aurelia-dialog";
 @inject(BannerServiceImpl, DialogService)
 export class DanhSachKhachHang implements ViewModelBase<Banner> {
-    entityList
-    entitiesCount
-    selected: Banner;
-    selectedList: Banner[];
     // pageSize = 5;
+    items: Banner[];
+    selectedItemItem: Banner;
+    itemsCount
+    selectedItem: Banner;
+    selectedList: Banner[];
     filter: Filter = { skip: 0, limit: 10, where: {} };
     asyncTask // task control waiting view
 
@@ -31,18 +32,18 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
     async runFilter() {
         logger.info('runFilter', this.filter)
         await (this.asyncTask = Promise.all([
-            this.bannerSrv.GetAll(this.filter).then(rec => this.entityList = rec),
-            this.bannerSrv.GetCount(this.filter.where).then(rec => this.entitiesCount = rec)
+            this.bannerSrv.GetAll(this.filter).then(rec => this.items = rec),
+            this.bannerSrv.GetCount(this.filter.where).then(rec => this.itemsCount = rec)
         ]))
 
     }
     async runCreate() {
         //torun gan select tu dialog tra ve
-        this.selected = new Banner()
-        this.dialogService.open({ viewModel: InsertOrUpdateBanner, model: this.selected }).whenClosed((result) => {
+        this.selectedItem = new Banner()
+        this.dialogService.open({ viewModel: InsertOrUpdateBanner, model: this.selectedItem }).whenClosed((result) => {
             if (!result.wasCancelled) {
 
-                this.selected = result.output;
+                this.selectedItem = result.output;
 
                 let res;
 
@@ -51,25 +52,25 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
             }
         });
 
-        logger.info("runCreate()", this.selected)
-        //this.bannerSrv.Post(this.selected)
+        logger.info("runCreate()", this.selectedItem)
+        //this.bannerSrv.Post(this.selectedItem)
     }
     async runUpdate() {
         //torun gan select tu dialog tra ve
-        logger.info("runUpdate()", this.selected)
+        logger.info("runUpdate()", this.selectedItem)
 
-        this.bannerSrv.Put(this.selected)
+        this.bannerSrv.Put(this.selectedItem)
     }
     async runDelete() {
-        logger.info("runDelete()", this.selected)
+        logger.info("runDelete()", this.selectedItem)
 
-        let bannerId = this.selected.ID
+        let bannerId = this.selectedItem.ID
         await this.bannerSrv.Delete(bannerId)
     }
     async runDeleteMany() {
-        logger.info("runDeleteList()", this.selectedList)
+        logger.info("runDeleteList()", this.selectedItemList)
 
-        let deletedIds = this.selectedList.map(x => x.ID);
+        let deletedIds = this.selectedItemList.map(x => x.ID);
         await this.bannerSrv.DeleteMany(deletedIds)
     }
 }

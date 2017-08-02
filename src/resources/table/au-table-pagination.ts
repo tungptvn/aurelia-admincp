@@ -1,3 +1,4 @@
+import { Filter } from './../base/filter-base';
 import { PLATFORM } from 'aurelia-pal';
 import { inject } from 'aurelia-dependency-injection';
 import { bindable, bindingMode } from 'aurelia-framework';
@@ -5,7 +6,7 @@ import { bindable, bindingMode } from 'aurelia-framework';
 export class AutPaginationCustomElement {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) currentPage;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) filterRef;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) filterRef: Filter
   @bindable pageSize;
   @bindable totalItems;
   @bindable hideSinglePage = true;

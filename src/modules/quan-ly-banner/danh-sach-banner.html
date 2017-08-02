@@ -22,14 +22,6 @@
                   <span class="help">e.g. </span>
                   <input type="text" class="form-control input-sm" value.bind="filter.where.Position">
                 </div>
-                <div class="form-group long">
-                  <label>THEO NGÀY</label>
-                  <div class="input-daterange input-group" id="datepicker-range">
-                    <input type="text" class="input-sm form-control" name="start">
-                    <span class="input-group-addon input-sm">đến</span>
-                    <input type="text" class="input-sm form-control" name="end">
-                  </div>
-                </div>
                 <div class="form-group">
                   <button data-loading-text="Loading" btn-async="task.call:runFilter()" class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
                 </div>
@@ -38,7 +30,7 @@
 
             <div class="col-sm-12">
               <loader async-task.bind="asyncTask">
-                <table class="table table-hover" aurelia-table="data.bind: entityList; display-data.bind: $displayData;">
+                <table class="table table-hover" aurelia-table="data.bind: items; display-data.bind: $displayData;">
                   <thead>
                     <tr>
                       <th>Img</th>
@@ -64,7 +56,7 @@
                 <div class="row">
                   <div class="col-md-8">
                     <aut-pagination filter-ref.bind="filter" changed.delegate="currentPageChanged($event)" current-page.bind="currentPage" page-size.bind="pageSize"
-                      total-items.bind="entitiesCount" pagination-size.bind="5">
+                      total-items.bind="itemsCount" pagination-size.bind="5">
                     </aut-pagination>
                   </div>
 
