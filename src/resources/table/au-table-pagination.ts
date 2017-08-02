@@ -142,7 +142,7 @@ export class AutPaginationCustomElement {
   }
   private dispatchChangedEvent() {
     // update to filter ref
-    this.filterRef.skip = this.currentPage * this.pageSize
+    this.filterRef.skip = (this.currentPage - 1 ) * this.pageSize
     this.filterRef.limit = this.pageSize
     console.log('pageSize', this.pageSize)
     let changedEvent;
