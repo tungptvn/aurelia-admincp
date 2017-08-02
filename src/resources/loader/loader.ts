@@ -1,12 +1,24 @@
-import { bindable } from 'aurelia-framework';
+import { PLATFORM } from 'aurelia-pal';
+import { bindable, inject } from 'aurelia-framework';
+@inject(Element)
 export class LoaderCustomElement {
     @bindable loading
     @bindable asyncTask
+    /**
+     *
+     */
+    constructor(private el) {
+    }
     async asyncTaskChanged() {
+        console.log('this.el', this.el)
+
         if (typeof this.asyncTask.then == 'function') {
-            this.loading = true
+
+            PLATFORM.global.$('#loader').fadeIn(200)
             await this.asyncTask
-            this.loading = false
+            PLATFORM.global.$('#loader').fadeOut(200)
+
+
         }
 
     }

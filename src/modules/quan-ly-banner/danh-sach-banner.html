@@ -15,12 +15,12 @@
                 <div class="form-group">
                   <label>Img</label>
                   <span class="help">e.g. </span>
-                  <input type="text" class="form-control input-sm" value.bind="filter.where.Img">
+                  <input type="text" class="form-control input-sm" value.bind="filter.where.img">
                 </div>
                 <div class="form-group">
                   <label>position</label>
                   <span class="help">e.g. </span>
-                  <input type="text" class="form-control input-sm" value.bind="filter.where.Position">
+                  <input type="text" class="form-control input-sm" value.bind="filter.where.position">
                 </div>
                 <div class="form-group">
                   <button data-loading-text="Loading" btn-async="task.call:runFilter()" class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
@@ -30,7 +30,7 @@
 
             <div class="col-sm-12">
               <loader async-task.bind="asyncTask">
-                <table class="table table-hover" aurelia-table="data.bind: items; display-data.bind: $displayData;">
+                <table class="table table-hover" aurelia-table="data.bind: items; display-data.bind: $displayData; ">
                   <thead>
                     <tr>
                       <th>Img</th>

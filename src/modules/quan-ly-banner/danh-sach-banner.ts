@@ -29,10 +29,15 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
         logger.info('runFilter', this.filter)
         await (this.asyncTask = Promise.all([
             this.bannerSrv.GetAll(this.filter).then(rec => this.items = rec),
-            this.bannerSrv.GetCount(this.filter.where).then(rec => this.itemsCount = rec)
+            this.bannerSrv.GetCount(this.filter).then(rec => this.itemsCount = rec),
+            // this.timerDo(1000) 
+
         ]))
 
     }
+      timerDo(ms = 0) {
+    return new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, ms) });
+  }
     async runCreate() {
         //torun gan select tu dialog tra ve
         this.selectedItem = new Banner()
