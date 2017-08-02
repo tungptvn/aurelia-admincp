@@ -7,18 +7,14 @@ export class LoaderCustomElement {
     /**
      *
      */
-    constructor(private el) {
+    constructor(private el:Element) {
     }
     async asyncTaskChanged() {
-        console.log('this.el', this.el)
 
         if (typeof this.asyncTask.then == 'function') {
-
-            PLATFORM.global.$('#loader').fadeIn(200)
+            PLATFORM.global.$(this.el.children[1].firstElementChild).fadeIn(200)
             await this.asyncTask
-            PLATFORM.global.$('#loader').fadeOut(200)
-
-
+            PLATFORM.global.$(this.el.children[1].firstElementChild).fadeOut(200)
         }
 
     }
