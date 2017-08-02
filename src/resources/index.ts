@@ -7,10 +7,11 @@ export function configure(config: FrameworkConfiguration) {
         PLATFORM.moduleName("./btn-async/btn-async"),
         PLATFORM.moduleName("./datepicker/datepicker"),
         PLATFORM.moduleName("./datepicker/date-range-picker"),
-       
+
         PLATFORM.moduleName('./table/au-table'),
         PLATFORM.moduleName('./table/au-table-pagination'),
         PLATFORM.moduleName('./table/au-table-select'),
-        PLATFORM.moduleName('./table/au-table-sort')     
-    ])       
+        PLATFORM.moduleName('./table/au-table-sort'),
+        PLATFORM.moduleName('./loader/loader')
+    ])
 }

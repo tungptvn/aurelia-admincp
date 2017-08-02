@@ -1,79 +1,152 @@
 <template>
-  <div class="container-fluid container-fixed-lg">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading clearfix">
-            <h5 class="m-t-0 ">
-              Danh sách khách hàng
-            </h5>
-            <button click.delegate="runCreate()">Tao banner</button>
+  <style>
+    .waiting {
+      background: red
+    }
+
+    .loaders-container {
+      position: relative;
+    }
+
+    .loaders {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .loader {
+      display: inline-block;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    .loader-quart {
+      border-radius: 50px;
+      border: 3px solid rgba(0, 0, 0, 0.3);
+    }
+
+    .loader-quart:after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      bottom: -3px;
+      left: -3px;
+      border-radius: 50px;
+      border: 3px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.5);
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        tranform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        tranform: rotate(360deg);
+      }
+    }
+
+  </style>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h5 class="m-t-0 ">
+            Danh sách khách hàng
+          </h5>
+          <button click.delegate="runCreate()">Tao banner</button>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-8">
+              <form role="form" lpformnum="2" class="form-filter" submit.delegate="runFilter()">
+                <div class="form-group">
+                  <label>Img</label>
+                  <span class="help">e.g. </span>
+                  <input type="text" class="form-control input-sm" value.bind="filter.where.Img">
+                </div>
+                <div class="form-group">
+                  <label>position</label>
+                  <span class="help">e.g. </span>
+                  <input type="text" class="form-control input-sm" value.bind="filter.where.Position">
+                </div>
+                <div class="form-group long">
+                  <label>THEO NGÀY</label>
+                  <div class="input-daterange input-group" id="datepicker-range">
+                    <input type="text" class="input-sm form-control" name="start">
+                    <span class="input-group-addon input-sm">đến</span>
+                    <input type="text" class="input-sm form-control" name="end">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-sm-12">
+              <loader async-task.bind="tableAsyncTask">
+                <table class="table table-hover" aurelia-table="data.bind: entityList; display-data.bind: $displayData; 
+                                page-size.bind: pageSize; current-page.bind: currentPage;">
+                  <thead>
+                    <tr>
+                      <th>Img</th>
+                      <th>Status</th>
+                      <th>position</th>
+                      <th>Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr repeat.for="item of $displayData">
+                      <td>${item.Img}</td>
+                      <td>${item.Status}</td>
+                      <td>${item.Position}</td>
+                      <td class="v-align-middle">
+                        <div class="btn-group sm-m-t-10">
+                          <button type="button" class="btn btn-default btn-sm text-primary"><i class="fa fa-edit"></i> Chỉnh sữa</button>
+                          <button type="button" class="btn btn-default btn-sm text-danger"><i class="fa fa-trash-o"></i> Xóa</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </loader>
+
+
+
+            </div>
+
           </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-8">
-                <form role="form" lpformnum="2" class="form-filter" submit.delegate="runFilter()">
-                  <div class="form-group">
-                    <label>Img</label>
-                    <span class="help">e.g. </span>
-                    <input type="text" class="form-control input-sm" value.bind="filter.where.img">
-                  </div>
-                  <div class="form-group long">
-                    <label>THEO NGÀY</label>
-                    <div class="input-daterange input-group" id="datepicker-range">
-                      <input type="text" class="input-sm form-control" name="start">
-                      <span class="input-group-addon input-sm">đến</span>
-                      <input type="text" class="input-sm form-control" name="end">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <button class="btn btn-primary btn-cons btn-sm m-t-25" type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
-                  </div>
-                </form>
-              </div>
 
-            </div>
-            <div class="table-responsive">
-              <table class="table table-hover" aurelia-table="data.bind: entityList; display-data.bind: $displayData; 
-                                page-size.bind: pageSize; current-page.bind: currentPage; waiting.bind: currentTask">
-                <thead>
-                  <tr>
-                    <th>Img</th>
-                    <th>Status</th>
-                    <th>Action </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr repeat.for="item of $displayData">
-                    <td>${item.Img}</td>
-                    <td>${item.Status}</td>
-                    <td class="v-align-middle">
-                      <div class="btn-group sm-m-t-10">
-                        <button type="button" class="btn btn-default btn-sm text-primary"><i class="fa fa-edit"></i> Chỉnh sữa</button>
-                        <button type="button" class="btn btn-default btn-sm text-danger"><i class="fa fa-trash-o"></i> Xóa</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="row">
-              <div class="col-md-8">
-                <aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="entityList.length" pagination-size.bind="5">
-                </aut-pagination>
-              </div>
 
-              <div class="col-md-2">
-                <div class="form-inline">
-                  <div class="form-group pull-right">
-                    <label for="pageSize">Page Size: </label>
-                    <select value.bind="pageSize" id="pageSize" class="form-control">
+
+          <div class="row">
+            <div class="col-md-8">
+              <aut-pagination current-page.bind="currentPage" page-size.bind="pageSize" total-items.bind="entitiesCount" pagination-size.bind="5">
+              </aut-pagination>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-inline">
+                <div class="form-group pull-right">
+                  <label for="pageSize">Page Size: </label>
+                  <select value.bind="pageSize" id="pageSize" class="form-control">
                         <option model.bind="5">5</option>
                         <option model.bind="10">10</option>
                         <option model.bind="20">20</option>
                         <option model.bind="50">50</option>
                     </select>
-                  </div>
                 </div>
               </div>
             </div>

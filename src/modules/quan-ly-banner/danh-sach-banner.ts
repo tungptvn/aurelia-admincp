@@ -9,24 +9,27 @@ import { DialogService } from "aurelia-dialog";
 @inject(BannerServiceImpl, DialogService)
 export class DanhSachKhachHang implements ViewModelBase<Banner> {
     entityList
+    entitiesCount
     selected: Banner;
     selectedList: Banner[];
     pageSize = 5;
-    filter: Filter = { skip: 0, limit: 10 };
-    currentTask // task control waiting view
+    filter: Filter = { skip: 0, limit: 10, where: {} };
+    tableAsyncTask // task control waiting view
 
     constructor(private bannerSrv: BannerService, private dialogService: DialogService) {
 
     }
     async activate(params, routeConfig, navigationInstruction) {
-        this.entityList = await this.bannerSrv.GetAll(this.filter)
-        logger.info('this.entityList', this.entityList)
+        await this.runFilter()
     }
     async runFilter() {
         logger.info('runFilter', this.filter)
+        await (this.tableAsyncTask = Promise.all([
+            this.bannerSrv.GetAll(this.filter).then(rec => this.entityList = rec),
+            this.bannerSrv.GetCount(this.filter.where).then(rec => this.entitiesCount = rec)
+        ]))
 
-        this.currentTask = this.bannerSrv.GetAll(this.filter)
-        this.entityList = await this.bannerSrv.GetAll(this.filter)
+
     }
     async runCreate() {
         //torun gan select tu dialog tra ve

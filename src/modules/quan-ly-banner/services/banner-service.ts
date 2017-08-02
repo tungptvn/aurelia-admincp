@@ -15,7 +15,7 @@ export class BannerServiceImpl implements BannerService {
         let rec = await axios.get('api/Banners/count', {
             params: filter.where
         })
-        return rec.data.count
+        return rec.data
     }
     async GetAll(filter?: Filter): Promise<any> {
         let recBanners = await axios.get('api/Banners', {

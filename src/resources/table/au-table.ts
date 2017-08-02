@@ -14,7 +14,7 @@ export class AureliaTableCustomAttribute {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) api;
 
-  @bindable waiting
+  @bindable tableLoading
 
   isAttached = false;
 
@@ -44,7 +44,7 @@ export class AureliaTableCustomAttribute {
       }
     }
 
-    let waitingObserver = this.bindingEngine.propertyObserver(this, 'waiting').subscribe(() => this.waitingChanged())
+    // let waitingObserver = this.bindingEngine.propertyObserver(this, 'waiting').subscribe(() => this.waitingChanged())
 
     this.api = {
       revealItem: (item) => this.revealItem(item)
@@ -65,13 +65,24 @@ export class AureliaTableCustomAttribute {
       observer.dispose();
     }
   }
-  async waitingChanged() {
-    console.log('his.waiting', this.waiting)
-    if (typeof this.waiting.then == 'function') {
+  async tableLoadingChanged() {
+    if (typeof this.tableLoading.then == 'function') {
       this.el.classList.add("waiting")
-      await this.waiting
-      this.el.remove("waiting");
+      await this.tableLoading
+      this.el.classList.remove("waiting")
     }
+    // if (typeof this.tableLoading.then == 'function') {
+    //   this.el.classList.add("waiting")
+    //   var promProxy = new Proxy(this.tableLoading, {
+    //     get: function (target, prop) {
+    //       if (prop === 'then') {
+    //         return target.then.bind(target);
+    //       }
+    //     }
+    //   });
+    //   promProxy.then(() =>console.log("end"));
+
+    // }
   }
 
   filterChanged() {
