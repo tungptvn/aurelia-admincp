@@ -13,6 +13,7 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
     selectedList: Banner[];
     pageSize = 5;
     filter: Filter = { skip: 0, limit: 10 };
+    currentTask // task control waiting view
 
     constructor(private bannerSrv: BannerService, private dialogService: DialogService) {
 
@@ -24,6 +25,7 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
     async runFilter() {
         logger.info('runFilter', this.filter)
 
+        this.currentTask = this.bannerSrv.GetAll(this.filter)
         this.entityList = await this.bannerSrv.GetAll(this.filter)
     }
     async runCreate() {

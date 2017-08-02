@@ -1,18 +1,20 @@
-import {inject, bindable, bindingMode, BindingEngine} from 'aurelia-framework';
+import { inject, bindable, bindingMode, BindingEngine } from 'aurelia-framework';
 
-@inject(BindingEngine)
+@inject(BindingEngine, Element)
 export class AureliaTableCustomAttribute {
 
   @bindable data;
-  @bindable({defaultBindingMode: bindingMode.twoWay}) displayData;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) displayData;
 
   @bindable filters;
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
-  @bindable ({defaultBindingMode: bindingMode.twoWay}) pageSize;
-  @bindable({defaultBindingMode: bindingMode.twoWay}) totalItems;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) currentPage;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) pageSize;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) totalItems;
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) api;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) api;
+
+  @bindable waiting
 
   isAttached = false;
 
@@ -23,11 +25,11 @@ export class AureliaTableCustomAttribute {
 
   dataObserver;
   filterObservers = [];
-  bindingEngine
+
   customSort
 
-  constructor(bindingEngine) {
-    this.bindingEngine = bindingEngine;
+  constructor(private bindingEngine: BindingEngine, private el) {
+    // this.bindingEngine = bindingEngine;
   }
 
   bind() {
@@ -41,6 +43,8 @@ export class AureliaTableCustomAttribute {
         this.filterObservers.push(observer);
       }
     }
+
+    let waitingObserver = this.bindingEngine.propertyObserver(this, 'waiting').subscribe(() => this.waitingChanged())
 
     this.api = {
       revealItem: (item) => this.revealItem(item)
@@ -59,6 +63,14 @@ export class AureliaTableCustomAttribute {
 
     for (let observer of this.filterObservers) {
       observer.dispose();
+    }
+  }
+  async waitingChanged() {
+    console.log('his.waiting', this.waiting)
+    if (typeof this.waiting.then == 'function') {
+      this.el.classList.add("waiting")
+      await this.waiting
+      this.el.remove("waiting");
     }
   }
 
