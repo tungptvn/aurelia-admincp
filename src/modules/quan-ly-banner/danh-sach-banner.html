@@ -55,7 +55,7 @@
                 </table>
                 <div class="row">
                   <div class="col-md-8">
-                    <aut-pagination filter-ref.bind="filter" changed.delegate="currentPageChanged($event)" current-page.bind="currentPage" page-size.bind="pageSize"
+                    <aut-pagination filter-ref.bind="filter" changed.delegate="paginationChanged($event)" current-page.bind="currentPage" page-size.bind="pageSize"
                       total-items.bind="itemsCount" pagination-size.bind="5">
                     </aut-pagination>
                   </div>
@@ -66,7 +66,7 @@
                         <label for="pageSize">Page Size: </label>
                         <select value.bind="pageSize" id="pageSize" class="form-control">
                         <option model.bind="5">5</option>
-                        <option model.bind="10">10</option>
+                        <option selected model.bind="10">10</option>
                         <option model.bind="20">20</option>
                         <option model.bind="50">50</option>
                     </select>

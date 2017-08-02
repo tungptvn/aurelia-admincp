@@ -8,10 +8,8 @@ import { logger } from "./logger";
 import { DialogService } from "aurelia-dialog";
 @inject(BannerServiceImpl, DialogService)
 export class DanhSachKhachHang implements ViewModelBase<Banner> {
-    // pageSize = 5;
     items: Banner[];
-    selectedItemItem: Banner;
-    itemsCount
+    itemsCount: number
     selectedItem: Banner;
     selectedList: Banner[];
     filter: Filter = { skip: 0, limit: 10, where: {} };
@@ -24,9 +22,7 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
         await this.runFilter()
 
     }
-    async currentPageChanged(event) {
-        console.log(event)
-        // this.filter.skip
+    async paginationChanged(event) {
         await this.runFilter()
     }
     async runFilter() {
@@ -68,9 +64,9 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
         await this.bannerSrv.Delete(bannerId)
     }
     async runDeleteMany() {
-        logger.info("runDeleteList()", this.selectedItemList)
+        logger.info("runDeleteList()", this.selectedList)
 
-        let deletedIds = this.selectedItemList.map(x => x.ID);
+        let deletedIds = this.selectedList.map(x => x.ID);
         await this.bannerSrv.DeleteMany(deletedIds)
     }
 }

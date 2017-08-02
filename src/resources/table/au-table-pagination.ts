@@ -6,7 +6,7 @@ import { bindable, bindingMode } from 'aurelia-framework';
 export class AutPaginationCustomElement {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay }) currentPage;
-  @bindable({ defaultBindingMode: bindingMode.twoWay }) filterRef: Filter
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) filterRef
   @bindable pageSize;
   @bindable totalItems;
   @bindable hideSinglePage = true;
@@ -29,7 +29,7 @@ export class AutPaginationCustomElement {
     }
 
     if (this.pageSize === undefined || this.pageSize === null || this.pageSize < 1) {
-      this.pageSize = 5;
+      this.pageSize = 10;
     }
   }
 
@@ -45,7 +45,7 @@ export class AutPaginationCustomElement {
   }
 
   currentPageChanged(n, o) {
-    if (o != 1) this.dispatchChangedEvent()
+    if (o) this.dispatchChangedEvent()
     this.calculatePages();
   }
 
@@ -61,9 +61,6 @@ export class AutPaginationCustomElement {
     } else {
       this.limitVisiblePages();
     }
-    // update to filter ref
-    this.filterRef.skip = this.currentPage * this.pageSize
-    this.filterRef.limit = this.pageSize
   }
 
   displayAllPages() {
@@ -144,6 +141,10 @@ export class AutPaginationCustomElement {
     this.currentPage = this.totalPages;
   }
   private dispatchChangedEvent() {
+    // update to filter ref
+    this.filterRef.skip = this.currentPage * this.pageSize
+    this.filterRef.limit = this.pageSize
+    console.log('pageSize', this.pageSize)
     let changedEvent;
     console.log('typeof PLATFORM.global.CustomEvent', typeof PLATFORM.global.CustomEvent)
     if (typeof PLATFORM.global.CustomEvent === 'function') {
