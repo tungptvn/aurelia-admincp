@@ -1,8 +1,11 @@
-import {bindable, bindingMode} from 'aurelia-framework';
-
+import { PLATFORM } from 'aurelia-pal';
+import { inject } from 'aurelia-dependency-injection';
+import { bindable, bindingMode } from 'aurelia-framework';
+@inject(Element)
 export class AutPaginationCustomElement {
 
-  @bindable({defaultBindingMode: bindingMode.twoWay}) currentPage;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) currentPage;
+  @bindable({ defaultBindingMode: bindingMode.twoWay }) filterRef;
   @bindable pageSize;
   @bindable totalItems;
   @bindable hideSinglePage = true;
@@ -17,7 +20,8 @@ export class AutPaginationCustomElement {
   totalPages = 1;
   displayPages = [];
 
-
+  constructor(private el) {
+  }
   bind() {
     if (this.currentPage === undefined || this.currentPage === null || this.currentPage < 1) {
       this.currentPage = 1;
@@ -33,19 +37,21 @@ export class AutPaginationCustomElement {
     this.calculatePages();
   }
 
-  pageSizeChanged() {
+  pageSizeChanged(n, o) {
+    if (o) this.dispatchChangedEvent()
     this.currentPage = 1;
     this.calculatePages();
   }
 
-  currentPageChanged() {
+  currentPageChanged(n, o) {
+    if (o != 1) this.dispatchChangedEvent()
     this.calculatePages();
   }
 
   calculatePages() {
     if (this.pageSize === 0) {
       this.totalPages = 1
-    }else {
+    } else {
       this.totalPages = this.totalItems <= this.pageSize ? 1 : Math.ceil(this.totalItems / this.pageSize);
     }
 
@@ -54,6 +60,9 @@ export class AutPaginationCustomElement {
     } else {
       this.limitVisiblePages();
     }
+    // update to filter ref
+    this.filterRef.skip = this.currentPage * this.pageSize
+    this.filterRef.limit = this.pageSize
   }
 
   displayAllPages() {
@@ -133,4 +142,22 @@ export class AutPaginationCustomElement {
   lastPage() {
     this.currentPage = this.totalPages;
   }
+  private dispatchChangedEvent() {
+    let changedEvent;
+    console.log('typeof PLATFORM.global.CustomEvent', typeof PLATFORM.global.CustomEvent)
+    if (typeof PLATFORM.global.CustomEvent === 'function') {
+      changedEvent = new CustomEvent('changed', {
+        detail: { currentPage: this.currentPage, pageSize: this.pageSize },
+        bubbles: true
+      });
+    } else {
+      changedEvent = document.createEvent('CustomEvent');
+      changedEvent.initCustomEvent('changed', true, true, {
+        detail: { currentPage: this.currentPage, pageSize: this.pageSize },
+      });
+
+    }
+    this.el.dispatchEvent(changedEvent);
+  }
+
 }

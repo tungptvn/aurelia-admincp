@@ -12,23 +12,28 @@ export class DanhSachKhachHang implements ViewModelBase<Banner> {
     entitiesCount
     selected: Banner;
     selectedList: Banner[];
-    pageSize = 5;
+    // pageSize = 5;
     filter: Filter = { skip: 0, limit: 10, where: {} };
-    tableAsyncTask // task control waiting view
+    asyncTask // task control waiting view
 
     constructor(private bannerSrv: BannerService, private dialogService: DialogService) {
 
     }
     async activate(params, routeConfig, navigationInstruction) {
         await this.runFilter()
+
+    }
+    async currentPageChanged(event) {
+        console.log(event)
+        // this.filter.skip
+        await this.runFilter()
     }
     async runFilter() {
         logger.info('runFilter', this.filter)
-        await (this.tableAsyncTask = Promise.all([
+        await (this.asyncTask = Promise.all([
             this.bannerSrv.GetAll(this.filter).then(rec => this.entityList = rec),
             this.bannerSrv.GetCount(this.filter.where).then(rec => this.entitiesCount = rec)
         ]))
-
 
     }
     async runCreate() {
